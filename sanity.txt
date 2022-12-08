@@ -1,0 +1,19 @@
+#!/bin/bash
+#clear data
+
+echo ${WORKSPACE}
+
+cd ${WORKSPACE}/
+
+npm install
+
+if [[ "$test_type" == "ALL_OASYS" || "$test_type" == "ALL_OXYZO" ]]
+then
+	echo "1";
+	node ${WORKSPACE}/src/main.js $stg_server $test_type
+else
+	echo "2";
+    echo node ${WORKSPACE}/src/main.js $stg_server CUSTOM $loanType $test
+	node ${WORKSPACE}/src/main.js $stg_server CUSTOM $loanType $test
+fi
+

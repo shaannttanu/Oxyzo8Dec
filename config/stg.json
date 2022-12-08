@@ -1,0 +1,400 @@
+{
+	"id": "7f123af8-5fcf-45d6-9770-41f6dd5215e1",
+	"name": "Stg",
+	"values": [
+		{
+			"key": "mobile",
+			"value": "9654997632",
+			"enabled": true
+		},
+		{
+			"key": "stgAPI",
+			"value": "https://stg-api.ofbusiness.in",
+			"enabled": true
+		},
+		{
+			"key": "oxyzoAPI",
+			"value": "https://stg-oxyzo-api.ofbusiness.in",
+			"enabled": true
+		},
+		{
+			"key": "redisKey",
+			"value": "fb199775-7e5c-4122-bacf-b4bd39cd7d81",
+			"enabled": true
+		},
+		{
+			"key": "stgfs",
+			"value": "https://stg-fs.ofbusiness.in",
+			"enabled": true
+		},
+		{
+			"key": "stgSch",
+			"value": "https://stg-sapi.ofbusiness.in",
+			"enabled": true
+		},
+		{
+			"key": "testOrganizationId",
+			"value": "6297626085785867761",
+			"enabled": true
+		},
+		{
+			"key": "testSupplierName",
+			"value": "Test Sanjeev",
+			"enabled": true
+		},
+		{
+			"key": "appType",
+			"value": "BUYER_APP",
+			"enabled": true
+		},
+		{
+			"key": "appVersion",
+			"value": "1.8.0",
+			"enabled": true
+		},
+		{
+			"key": "appBuildNumber",
+			"value": "1080099",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystem",
+			"value": "Android",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystemVersion",
+			"value": "6.0",
+			"enabled": true
+		},
+		{
+			"key": "deviceType",
+			"value": "Lenovo A7020a48",
+			"enabled": true
+		},
+		{
+			"key": "deviceResolution",
+			"value": "1080x1920",
+			"enabled": true
+		},
+		{
+			"key": "carrier",
+			"value": "Vodafone IN",
+			"enabled": true
+		},
+		{
+			"key": "buyer_app_platform",
+			"value": "APP",
+			"enabled": true
+		},
+		{
+			"key": "website_app_platform",
+			"value": "WEB_SITE",
+			"enabled": true
+		},
+		{
+			"key": "contactPersonName",
+			"value": "app account",
+			"enabled": true
+		},
+		{
+			"key": "testOrganizationId",
+			"value": "6297626085785867761",
+			"enabled": true
+		},
+		{
+			"key": "testSupplierName",
+			"value": "Test Sanjeev",
+			"enabled": true
+		},
+		{
+			"key": "appType",
+			"value": "BUYER_APP",
+			"enabled": true
+		},
+		{
+			"key": "appVersion",
+			"value": "1.8.0",
+			"enabled": true
+		},
+		{
+			"key": "appBuildNumber",
+			"value": "1080099",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystem",
+			"value": "Android",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystemVersion",
+			"value": "6.0",
+			"enabled": true
+		},
+		{
+			"key": "deviceType",
+			"value": "Lenovo A7020a48",
+			"enabled": true
+		},
+		{
+			"key": "deviceResolution",
+			"value": "1080x1920",
+			"enabled": true
+		},
+		{
+			"key": "carrier",
+			"value": "Vodafone IN",
+			"enabled": true
+		},
+		{
+			"key": "buyer_app_platform",
+			"value": "APP",
+			"enabled": true
+		},
+		{
+			"key": "website_app_platform",
+			"value": "WEB_SITE",
+			"enabled": true
+		},
+		{
+			"key": "testOrganizationId",
+			"value": "6297626085785867761",
+			"enabled": true
+		},
+		{
+			"key": "testSupplierName",
+			"value": "Test Sanjeev",
+			"enabled": true
+		},
+		{
+			"key": "appType",
+			"value": "BUYER_APP",
+			"enabled": true
+		},
+		{
+			"key": "appVersion",
+			"value": "1.8.0",
+			"enabled": true
+		},
+		{
+			"key": "appBuildNumber",
+			"value": "1080099",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystem",
+			"value": "Android",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystemVersion",
+			"value": "6.0",
+			"enabled": true
+		},
+		{
+			"key": "deviceType",
+			"value": "Lenovo A7020a48",
+			"enabled": true
+		},
+		{
+			"key": "deviceResolution",
+			"value": "1080x1920",
+			"enabled": true
+		},
+		{
+			"key": "carrier",
+			"value": "Vodafone IN",
+			"enabled": true
+		},
+		{
+			"key": "buyer_app_platform",
+			"value": "APP",
+			"enabled": true
+		},
+		{
+			"key": "website_app_platform",
+			"value": "WEB_SITE",
+			"enabled": true
+		},
+		{
+			"key": "contactPersonName",
+			"value": "test buyer app account",
+			"enabled": true
+		},
+		{
+			"key": "clientName",
+			"value": "test clientName",
+			"enabled": true
+		},
+		{
+			"key": "testOrganizationId",
+			"value": "6297626085785867761",
+			"enabled": true
+		},
+		{
+			"key": "testSupplierName",
+			"value": "Test Sanjeev",
+			"enabled": true
+		},
+		{
+			"key": "appType",
+			"value": "BUYER_APP",
+			"enabled": true
+		},
+		{
+			"key": "appVersion",
+			"value": "1.8.0",
+			"enabled": true
+		},
+		{
+			"key": "appBuildNumber",
+			"value": "1080099",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystem",
+			"value": "Android",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystemVersion",
+			"value": "6.0",
+			"enabled": true
+		},
+		{
+			"key": "deviceType",
+			"value": "Lenovo A7020a48",
+			"enabled": true
+		},
+		{
+			"key": "deviceResolution",
+			"value": "1080x1920",
+			"enabled": true
+		},
+		{
+			"key": "carrier",
+			"value": "Vodafone IN",
+			"enabled": true
+		},
+		{
+			"key": "buyer_app_platform",
+			"value": "APP",
+			"enabled": true
+		},
+		{
+			"key": "website_app_platform",
+			"value": "WEB_SITE",
+			"enabled": true
+		},
+		{
+			"key": "contactPersonName",
+			"value": "test buyer app account",
+			"enabled": true
+		},
+		{
+			"key": "clientName",
+			"value": "test clientName",
+			"enabled": true
+		},
+		{
+			"key": "testOrganizationId",
+			"value": "6297626085785867761",
+			"enabled": true
+		},
+		{
+			"key": "testSupplierName",
+			"value": "Test Sanjeev",
+			"enabled": true
+		},
+		{
+			"key": "appType",
+			"value": "BUYER_APP",
+			"enabled": true
+		},
+		{
+			"key": "appVersion",
+			"value": "1.8.0",
+			"enabled": true
+		},
+		{
+			"key": "appBuildNumber",
+			"value": "1080099",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystem",
+			"value": "Android",
+			"enabled": true
+		},
+		{
+			"key": "operatingSystemVersion",
+			"value": "6.0",
+			"enabled": true
+		},
+		{
+			"key": "deviceType",
+			"value": "Lenovo A7020a48",
+			"enabled": true
+		},
+		{
+			"key": "deviceResolution",
+			"value": "1080x1920",
+			"enabled": true
+		},
+		{
+			"key": "carrier",
+			"value": "Vodafone IN",
+			"enabled": true
+		},
+		{
+			"key": "buyer_app_platform",
+			"value": "APP",
+			"enabled": true
+		},
+		{
+			"key": "website_app_platform",
+			"value": "WEB_SITE",
+			"enabled": true
+		},
+		{
+			"key": "contactPersonName",
+			"value": "Someone",
+			"enabled": true
+		},
+		{
+			"key": "randomMobile",
+			"value": "9718415454",
+			"enabled": true
+		},
+		{
+			"key": "stgcipher",
+			"value": "https://stg-cipher-api.ofbusiness.in",
+			"enabled": true
+		},
+		{
+			"key": "stgcipherFE",
+			"value": "https://stg-cipher-fe.ofbusiness.in",
+			"enabled": true
+		},
+		{
+			"key": "conNum",
+			"value": "9898717165",
+			"enabled": true
+		},
+		{
+			"key": "GalaconNum",
+			"value": "9666555597",
+			"enabled": true
+		},
+		{
+			"key": "AdminAuthToken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-12-08T12:11:58.071Z",
+	"_postman_exported_using": "Postman/9.31.25"
+}

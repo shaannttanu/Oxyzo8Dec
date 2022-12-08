@@ -1,0 +1,49 @@
+{
+    "data": {
+        "loanId": "6457233009497086301",
+        "processingFeeInfo": {
+            "processingFeeCharged": 70800,
+            "processingFeePaid": 70800,
+            "processingFeeRoundOff": 0
+        },
+        "principalInfo": {
+            "totalDisbursed": 10000,
+            "totalPaid": 236000,
+            "currPrincipalOutstanding": -155200
+        },
+        "penaltyInfo": {
+            "penaltyCharged": 0,
+            "penaltyPaid": 0,
+            "penaltyRoundOff": 0,
+            "totalPenalty": 0
+        },
+        "interestInfo": {
+            "interestCharged": 0,
+            "interestPaid": 0,
+            "interestRoundOff": 0,
+            "totalInterest": 88.77,
+            "invoiceInfoList": []
+        },
+        "debitNoteInfo": {
+            "debitNoteCharged": 0,
+            "debitNotePaid": 0,
+            "debitNoteRoundOff": 0
+        },
+        "chargesInfo": {
+            "chargesCharged": 0,
+            "chargesPaid": 0,
+            "chargesRoundOff": 0
+        },
+        "limitInfo": {
+            "totalLimit": 10000000,
+            "availableLimit": 10155200
+        },
+        "paymentInfo": {
+            "paymentOutstanding": 0
+        }
+    },
+    "success": true,
+    "errorMessage": null,
+    "errorCode": 0,
+    "meta": null
+}

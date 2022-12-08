@@ -1,0 +1,3936 @@
+{
+	"info": {
+		"_postman_id": "6d1ef51b-d77d-45f9-84af-3807bfe54ae0",
+		"name": "Create Orion Loan New User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21756949"
+	},
+	"item": [
+		{
+			"name": "createAutomationAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"if (responseCode.code === 502) {",
+							"postman.setNextRequest(null);",
+							"}",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"automationId\", jsonData.data.accountId);",
+							"var ts = Math.round((new Date()).getTime());",
+							"postman.setGlobalVariable(\"currentTime\", ts);",
+							"var ts = Math.round((new Date()).getTime());",
+							"function getNextDay(ts) {",
+							"tomorrowTime =ts + 86400000;",
+							"return tomorrowTime;}",
+							"postman.setGlobalVariable(\"tomorrowTime\", getNextDay(ts));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Automation Bot\",\n  \"mobile\":\"1000000000\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"email\":\"\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/automationBot/account",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"automationBot",
+						"account"
+					]
+				},
+				"description": "automation account used for further processing"
+			},
+			"response": []
+		},
+		{
+			"name": "createApproverAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ApproverId\", jsonData.data.accountId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Approver Bot\",\n  \"mobile\":\"1000000001\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"email\":\"\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/automationBot/account",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"automationBot",
+						"account"
+					]
+				},
+				"description": "approver account "
+			},
+			"response": []
+		},
+		{
+			"name": "Token auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"AdminAuthToken2\", \"6219036125718125526\" );",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 2 seconds before the next request\");",
+							"},2000) ;",
+							"var loantype = postman.getGlobalVariable(\"sLoanType\");",
+							"postman.setGlobalVariable(\"loanType\",loantype)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/internal/testLogin/6219036125718125526?key={{redisKey}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"internal",
+						"testLogin",
+						"6219036125718125526"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{redisKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminAuthToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"AdminAuthToken\", jsonData.data.token);",
+							"console.log(\"AdminAuthToken:\",pm.globals.get(\"AdminAuthToken\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mobile\":\"1000000000\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"userProfileType\":\"OXYZOAPPLICANT\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/oxyzo/applicant/account/login",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"applicant",
+						"account",
+						"login"
+					]
+				},
+				"description": "Get Admin auth token for further"
+			},
+			"response": []
+		},
+		{
+			"name": "approverAdminAuthToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ApproverAuthToken\", jsonData.data.token);",
+							"console.log(\"ApproverAuthToken:\",pm.globals.get(\"ApproverAuthToken\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mobile\":\"1000000001\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"userProfileType\":\"OXYZOAPPLICANT\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/oxyzo/applicant/account/login",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"applicant",
+						"account",
+						"login"
+					]
+				},
+				"description": "Get Approver Admin auth token for further"
+			},
+			"response": []
+		},
+		{
+			"name": "Send Login Otp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}",
+						"disabled": true
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}",
+						"disabled": true
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "1080099",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\":\"{{randomMobile}}\"}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/account/loginOtp",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"loginOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOtp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 403) {",
+							"postman.setNextRequest(null);",
+							"}",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ClientOtp\", jsonData.data);",
+							"postman.setGlobalVariable(\"deviceId\", (\"0000000\" + Math.floor(0 + Math.random() * 9999999)).slice(-7));",
+							"var ts = Math.round((new Date()).getTime());",
+							"function getNextDay(ts) {",
+							"tomorrowTime =ts + 86400000;",
+							"return tomorrowTime;}",
+							"postman.setGlobalVariable(\"tomorrowTime\", getNextDay(ts));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/internal/otp?mobile={{randomMobile}}&key={{redisKey}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"internal",
+						"otp"
+					],
+					"query": [
+						{
+							"key": "mobile",
+							"value": "{{randomMobile}}"
+						},
+						{
+							"key": "key",
+							"value": "{{redisKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accountCreate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"function BuildPanCard() {",
+							"  var panNumbersText = \"\";",
+							"  var possibleAlphabets = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";",
+							"",
+							"  for (var i = 0; i < 5; i++)",
+							"    panNumbersText += possibleAlphabets.charAt(Math.floor(Math.random() * possibleAlphabets.length));",
+							"",
+							"  panNumbersText += (\"0000\" + Math.floor(0 + Math.random() * 9999)).slice(-4);",
+							"",
+							"  for (var j = 0; j < 1; j++)",
+							"    panNumbersText += possibleAlphabets.charAt(Math.floor(Math.random() * possibleAlphabets.length));",
+							"",
+							"  return panNumbersText;",
+							"}",
+							"postman.setGlobalVariable(\"PanNumber\", BuildPanCard());",
+							"console.log(\"PanNumber\", pm.globals.get(\"PanNumber\"));",
+							"",
+							"var gstNumbertest = \"06\"+pm.globals.get(\"PanNumber\")+\"1ZC\";",
+							"postman.setGlobalVariable(\"gst\", gstNumbertest);",
+							"console.log(\"gstNumber\", pm.globals.get(\"gst\"));",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"buyerAccountId\", jsonData.data.minAccountDto.accountId);",
+							"postman.setGlobalVariable(\"ClientAuthToken\", jsonData.data.token);",
+							"console.log(\"ClientAuthToken\",pm.globals.get(\"ClientAuthToken\"))",
+							"var ts = Math.round((new Date()).getTime());",
+							"postman.setGlobalVariable(\"currentTime\", ts);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "1080099",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"profiles\": {\n\t\t\"BUYER\": {\n\t\t\t\"type\":\"buyer\"\n\t\t},\n\t\t\"OXYZOAPPLICANT\": {\n\t\t\t\"type\":\"oxyzoapplicant\"\n\t\t}\n\t},\n\t\"mobile\":\"{{randomMobile}}\",\n\t\"password\":\"Password@123\",\n\t\"otp\":\"{{ClientOtp}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/account/create",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubIndustryMap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"type": "text",
+						"value": "{{ClientAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/industrySubIndustryMap",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"industrySubIndustryMap"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrganization",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"window = {};",
+							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {",
+							"var text = response.text();",
+							"(new Function(text))();",
+							"",
+							"window.faker.locale = \"de\";",
+							"var name = window.faker.name.findName();",
+							"",
+							"pm.globals.set(\"organizationName\", name + \" Testing Company\") ;",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ClientOrganisationId\", jsonData.data.organisationId);",
+							"postman.setGlobalVariable(\"LeadId\", jsonData.data.organisationId);",
+							"console.log(\"ClientOrganisationId: \",pm.globals.get(\"ClientOrganisationId\"));",
+							"postman.setGlobalVariable(\"organizationName\", jsonData.data.organisationName);",
+							"console.log(\"organizationName: \",pm.globals.get(\"organizationName\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "BUYER"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg4.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg4.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contactMobile\": \"{{randomMobile}}\",\n    \"contactName\": \"{{contactName}}\",\n    \"orgName\": \"{{organizationName}}\",\n    \"industry\": \"MANUFACTURING\",\n    \"industryType\": \"AUTO_AND_AUTO_ANCILLARIES\",\n    \"pinCode\": \"121001\",\n    \"potential\": \"500\",\n    \"organisationType\": \"BUYER\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/lead",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"lead"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateClientDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 5 seconds before the next request\");",
+							"},5000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853971"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "oxyzo"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.479127"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://oxyzo.stg3-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://oxyzo.stg3-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"clientId\": \"{{ClientOrganisationId}}\",\n    \"name\": \"{{organizationName}}\",\n    \"email\": \"{{contactEmail}}\",\n    \"entityType\": \"PRIVATE_LTD_COMPANY\",\n    \"industryType\": \"MANUFACTURING - AUTO_AND_AUTO_ANCILLARIES\",\n    \"pan\": \"{{PanNumber}}\",\n    \"cin\": \"U18101MH1994PLC082837\",\n    \"yearOfIncorporation\": 2000,\n    \"numberOfProjects\": null,\n    \"numberOfPromoters\": 1,\n    \"numberOfEmployees\": null,\n    \"revenue\": null,\n    \"officeType\": null,\n    \"businessRegistered\": false,\n    \"status\": \"VERIFIED\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientOrganisationId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientOrganisationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"isBillingAddress\":true,\n\"isShippingAddress\":true,\n\"isCourrierAddress\":false,\n\"isConsigneeAddress\":true,\n\"isCorporateAddress\":true,\n\"isOxyzoOfficeAddress\":true,\n\"partyId\":\"{{ClientOrganisationId}}\",\n\"contactPersonName\":\"{{contactName}}\",\n\"contactPersonNumber\":\"{{randomMobile}}\",\n\"partyType\":\"BUYER_ORGANISATION\",\n\"addressLine1\":\"test-addressLine1\",\n\"addressLine2\":\"test-addressLine2\",\n\"city\":\"Faridabad\",\n\"state\":\"Haryana\",\n\"pinCode\":\"121001\",\n\"addressTypes\":[\n\"BILLING_ADDRESS\",\n\"OXYZO_OFFICE_ADDRESS\"\n,\n\"SHIPPING_ADDRESS\"\n,\n\"CORPORATE_ADDRESS\"\n],\n\"partyTypes\":[\n\"BUYER_ORGANISATION\"\n]\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/address/{{buyerAccountId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"address",
+						"{{buyerAccountId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save gst details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"vat\":null,\n\"cst\":null,\n\"gst\":\"{{gst}}\",\n\"gstIssueDate\":1545046231865\n}\n"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/tax/{{ClientOrganisationId}}/taxes/HR",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"tax",
+						"{{ClientOrganisationId}}",
+						"taxes",
+						"HR"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stateLevelInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"stateTaxInfoId\", jsonData.data.HR.stateTaxInfoId);",
+							"postman.setGlobalVariable(\"gst\", jsonData.data.HR.gst);",
+							"postman.setGlobalVariable(\"gstIssueDate\", jsonData.data.HR.gstIssueDate);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/stateLevelInfo/{{ClientOrganisationId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"stateLevelInfo",
+						"{{ClientOrganisationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody).data;",
+							"",
+							"var constAddressType = [\"BILLING_ADDRESS\", \"SHIPPING_ADDRESS\"];",
+							"var len = jsonData.minOrganisationDto.addresses.length;",
+							"for(var i = 0; i < len ; i++)",
+							"{",
+							"    console.log(jsonData.minOrganisationDto.addresses[i].addressTypes);",
+							"    var addressTypeArray = jsonData.minOrganisationDto.addresses[i].addressTypes;",
+							"    if(addressTypeArray.length >= 2) {",
+							"        console.log(\"Address:\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"        if(constAddressType.every(add => addressTypeArray.includes(add)))",
+							"        {",
+							"            postman.setGlobalVariable(",
+							"                \"buyerAddressId\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"            console.log(\"buyerAddressId:\"+ pm.globals.get(\"buyerAddressId\"));",
+							"        }",
+							"    }",
+							"}",
+							"",
+							"var constAddressType1 = [\"OXYZO_OFFICE_ADDRESS\"];",
+							"var len = jsonData.minOrganisationDto.addresses.length;",
+							"for(var i = 0; i < len ; i++)",
+							"{",
+							"    console.log(jsonData.minOrganisationDto.addresses[i].addressTypes);",
+							"    var addressTypeArray = jsonData.minOrganisationDto.addresses[i].addressTypes;",
+							"    if(addressTypeArray.length = 1) {",
+							"        console.log(\"Address:\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"        if(constAddressType1.every(add => addressTypeArray.includes(add)))",
+							"        {",
+							"            postman.setGlobalVariable(",
+							"                \"buyerAddressId1\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"            console.log(\"buyerAddressId1:\"+ pm.globals.get(\"buyerAddressId1\"));",
+							"        }",
+							"    }",
+							"}",
+							"",
+							"var constAddressType2 = [null];",
+							"var len = jsonData.minOrganisationDto.addresses.length;",
+							"for(var i = 0; i < len ; i++)",
+							"{",
+							"    var addressTypeArray = jsonData.minOrganisationDto.addresses[i].addressTypes;",
+							"    if(!addressTypeArray[0]) {",
+							"            postman.setGlobalVariable(",
+							"                \"buyerAddressId2\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"            console.log(\"buyerAddressId2:\"+ pm.globals.get(\"buyerAddressId2\"));",
+							"",
+							"        }",
+							"    }"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "applicationId",
+						"value": "{{ClientAppId}}",
+						"disabled": true
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/lead/{{LeadId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"lead",
+						"{{LeadId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAddresswithGST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody) ;",
+							"pm.globals.set(\"ClientAdressId\" , jsonData.data.addressId) ;",
+							"console.log(\"ClientAddressId :\" , pm.globals.get(\"ClientAdressId\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.085396"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790909"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg3-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg3-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"addressLine1\": \"Somewhere\",\n    \"addressLine2\": \"in Faridabad\",\n    \"pinCode\": \"121001\",\n    \"city\": \"Faridabad\",\n    \"state\": \"HARYANA\",\n    \"landmark\": null,\n    \"addressTypes\": [\n        \"BILLING_ADDRESS\",\n        \"SHIPPING_ADDRESS\"\n    ],\n    \"linkedContactPersonIds\": [\n        \"6238628696362588160\"\n    ],\n    \"linkedGst\": \"{{gst}}\",\n    \"partyId\": \"{{ClientOrganisationId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/address/765003511120269717",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"address",
+						"765003511120269717"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyAddress",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853917"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790979"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg3-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg3-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"comment\": \"\",\n        \"documentGroup\": \"COMPANY_ADDRESS_PROOF\",\n        \"documentTypeId\": \"6255234674453387231\",\n        \"formAnswerCreateDto\": {},\n        \"parentDocumentId\": \"\",\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"download.jpeg\",\n        \"keepOriginal\": true,\n        \"size\": 4652,\n        \"status\": \"VERIFIED\",\n        \"storagePath\": \"{{tempFileLocation}}\"\n    },\n    \"verificationOption\": \"CHOOSE_EXISTING\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/address/{{ClientOrganisationId}}/{{ClientAdressId}}/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"address",
+						"{{ClientOrganisationId}}",
+						"{{ClientAdressId}}",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lead Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"sqlLeadId\", jsonData.data.id);",
+							"postman.setGlobalVariable(\"leadPrimaryEmployeeId\", jsonData.data.minOrganisationDto.primaryEmployeeId);",
+							"console.log(\"leadPrimaryEmployeeId\",pm.globals.get(\"leadPrimaryEmployeeId\"))",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "applicationId",
+						"value": "{{ClientAppId}}",
+						"disabled": true
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/lead/{{LeadId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"lead",
+						"{{LeadId}}"
+					]
+				},
+				"description": "Get Lead Details"
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyGst",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"download.jpeg\",\n        \"size\": 67975,\n        \"storagePath\": \"{{tempFileLocation}}\",\n        \"status\": \"VERIFIED\",\n        \"documentTypeId\": \"6307081014124484786\",\n        \"documentGroup\": \"COMPANY_GST\"\n    },\n    \"verificationOption\": \"CHOOSE_EXISTING\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/{{ClientOrganisationId}}/GST/{{stateTaxInfoId}}/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"{{ClientOrganisationId}}",
+						"GST",
+						"{{stateTaxInfoId}}",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyPan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"download.jpeg\",\n        \"size\": 67975,\n        \"storagePath\": \"{{tempFileLocation}}\",\n        \"status\": \"VERIFIED\",\n        \"documentTypeId\": \"6254601419865724783\",\n        \"documentGroup\": \"COMPANY_PAN\"\n    },\n    \"pan\": \"{{PanNumber}}\",\n    \"oldPan\": \"\",\n    \"changePan\": false,\n    \"verificationOption\": \"CHOOSE_EXISTING\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/{{ClientOrganisationId}}/verifyPan",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"{{ClientOrganisationId}}",
+						"verifyPan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify Branch_Region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/{{ClientOrganisationId}}/BRANCH_REGION/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"{{ClientOrganisationId}}",
+						"BRANCH_REGION",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createnewLoanApplication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"loanType\",\"POD\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"clientId\": \"{{ClientOrganisationId}}\",\n    \"loanAmount\": 1000000,\n    \"partnerId\": \"6300124738349964505\",\n    \"loanType\": \"{{loanType}}\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/create",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAndVerifyClientInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"clientInfoDto\": {\n        \"industry\": \"MANUFACTURING\",\n        \"subIndustry\": \"AUTO_AND_AUTO_ANCILLARIES\",\n        \"entityType\": \"PRIVATE_LTD_COMPANY\",\n        \"rbiClassification\": \"INDUSTRY\",\n        \"rbiSubClassification\": \"MEDIUM\",\n        \"smeClassification\": \"MEDIUM\",\n        \"msme\": false\n    }\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientOrganisationId}}/{{ClientAppId}}/updateAndVerifyClientInfo",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientOrganisationId}}",
+						"{{ClientAppId}}",
+						"updateAndVerifyClientInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLoanApplicationId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"ClientAppId\" , jsonData.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\"",
+						"type": "text"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}",
+						"type": "text"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696",
+						"type": "text"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01",
+						"type": "text"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin",
+						"type": "text"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN",
+						"type": "text"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb",
+						"type": "text"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623",
+						"type": "text"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\"",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication?clientId={{ClientOrganisationId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication"
+					],
+					"query": [
+						{
+							"key": "clientId",
+							"value": "{{ClientOrganisationId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status->FromVerifiedtoProcesssing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"PROCESSING\",\n    \"comments\": [\n        {\n            \"comment\": null,\n            \"predefinedComment\": false,\n            \"additionalComment\": null,\n            \"additionalCommentAllowed\": false\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/status",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status->FromProcessingtoUnderwriting(Tele)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"UNDERWRITING_TELEPHONIC\",\n    \"comments\": [\n        {\n            \"comment\": null,\n            \"predefinedComment\": false,\n            \"additionalComment\": null,\n            \"additionalCommentAllowed\": false\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/status",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status->Underwriting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"UNDERWRITING\",\n    \"comments\": [\n        {\n            \"comment\": null,\n            \"predefinedComment\": false,\n            \"additionalComment\": null,\n            \"additionalCommentAllowed\": false\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/status",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/ABC.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file Upload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"documentId\" , jsonData.data[0].documentId);",
+							"setTimeout(function(){",
+							"    console.log(\"waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"fileFingerPrint\":\"{{fingerPrint}}\",\n\"documentName\":\"Invoice.png\",\n\"storagePath\":\"{{tempFileLocation}}\",\n\"size\":67975\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientOrganisationId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientOrganisationId}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadCompanyBankStatement",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentId\": \"{{documentId}}\",\n    \"status\": \"VERIFIED\",\n    \"properties\": [\n        {\n            \"documentTypeId\": \"6310695617769248592\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6309639617146523769\",\n                \"values\": {\n                    \"6257143228022133899\": [\n                        \"Scanned JPG/JPEG\"\n                    ],\n                    \"6309639617117163639\": [\n                        1647801000000\n                    ],\n                    \"6309639617121357944\": [\n                        {{currentTime}}\n                    ],\n                    \"6717953219605044642\": [\n                        \"1\"\n                    ],\n                    \"6717953219605044643\": [\n                        \"1\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228030522499\",\n                \"values\": {\n                    \"6257143228022133889\": [\n                        true\n                    ],\n                    \"6257143228026328194\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientOrganisationId}}\"\n        }\n    ],\n    \"documentGroup\": \"OTHER\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/document/{{documentId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"document",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/ABC.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file Upload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"documentId\" , jsonData.data[0].documentId);",
+							"setTimeout(function(){",
+							"    console.log(\"waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"fileFingerPrint\":\"{{fingerPrint}}\",\n\"documentName\":\"Invoice.png\",\n\"storagePath\":\"{{tempFileLocation}}\",\n\"size\":67975\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientOrganisationId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientOrganisationId}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadGSTCertificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentId\": \"{{documentId}}\",\n    \"status\": \"VERIFIED\",\n    \"properties\": [\n        {\n            \"documentTypeId\": \"6281992870043850716\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6368716129900172630\",\n                \"values\": {\n                    \"6717953207152155975\": [\n                        \"1\"\n                    ],\n                    \"6368716129875006805\": [\n                        \"{{gst}}\"\n                    ],\n                    \"6717953207147961670\": [\n                        \"1\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientOrganisationId}}\"\n        }\n    ],\n    \"documentGroup\": \"OTHER\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/document/{{documentId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"document",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/ABC.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file Upload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"documentId\" , jsonData.data[0].documentId);",
+							"setTimeout(function(){",
+							"    console.log(\"waiting for 3 seconds before the next request\");",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"fileFingerPrint\":\"{{fingerPrint}}\",\n\"documentName\":\"Invoice.png\",\n\"storagePath\":\"{{tempFileLocation}}\",\n\"size\":67975\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientOrganisationId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientOrganisationId}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadPAN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.091127"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850774"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentId\": \"{{documentId}}\",\n    \"status\": \"VERIFIED\",\n    \"properties\": [\n        {\n            \"documentTypeId\": \"6254601419865724783\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674469122701\",\n                \"values\": {\n                    \"6717953201313684773\": [\n                        \"1\"\n                    ],\n                    \"6717953201317879078\": [\n                        \"1\"\n                    ],\n                    \"6264352674464928396\": [\n                        \"{{PanNumber}}\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientOrganisationId}}\"\n        }\n    ],\n    \"documentGroup\": \"OTHER\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/document/{{documentId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"document",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatenewLoanRequests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"LoanRequestId\",jsonData.data.loanRequests[0].loanRequestId);",
+							"var loanType = jsonData.data.loanType",
+							"pm.globals.set(\"loanType\" , loanType)",
+							"if(loanType === \"TERM_LOAN\"){",
+							"    pm.globals.set(\"loanSubType\" , \"INTEREST_REDUCING\");",
+							"}else{",
+							"    pm.globals.set(\"loanSubType\" , \"PF_MONTHLY\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.2967542"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4140586"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/loanRequests",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"loanRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLoanRequesttoOffered(Pending)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.2967542"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4140586"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"loanAmount\": 1000000,\n    \"interestRate\": 14,\n    \"processingCharge\": 2,\n    \"tenure\": 12,\n    \"repaymentCycle\": 100,\n    \"penaltyPercentage\": 4,\n    \"gracePeriod\": 0,\n    \"status\": \"OFFERED_PENDING_APPROVAL\",\n    \"remarks\": \"abcd\",\n    \"insuranceRequired\": false,\n    \"transactionAllowed\": \"MARKETPLACE_AND_BUYOUT\",\n    \"loanSecurityType\": \"NONE\",\n    \"pdcRequired\": true,\n    \"pdcCollectionType\": \"ONE_FOR_ALL_ORDERS\",\n    \"waiveOffInterest\": false,\n    \"adhocAllowed\": true,\n    \"interestRateType\": \"FIXED\",\n    \"foreclosureChargesPercentageMap\": {\n        \"1\": 2\n    },\n    \"processingAmount\": {{processingAmount}},\n    \"minUtilisationRequired\": false,\n    \"minUtilisationAmount\": null,\n    \"minUtilisationChargingType\": null,\n    \"minUtilisationServiceRate\": null,\n    \"categorySpecificLimitRequired\": false,\n    \"comments\": [],\n    \"allowedGroupCompanies\": [],\n    \"rfqIds\": []\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/loanRequest/{{LoanRequestId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"loanRequest",
+						"{{LoanRequestId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLoanRequesttoOffered",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"LoanId\" , jsonData.data.loanRequests[0].loanId);",
+							"var Loantype = pm.globals.get(\"loanType\");",
+							"if(Loantype===\"POD\"){",
+							"     postman.setNextRequest(\"getcontactID\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.2967542"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4140586"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"loanAmount\": 1000000,\n    \"interestRate\": 14,\n    \"processingCharge\": 2,\n    \"tenure\": 12,\n    \"repaymentCycle\": 100,\n    \"penaltyPercentage\": 4,\n    \"gracePeriod\": 0,\n    \"status\": \"OFFERED\",\n    \"remarks\": \"abcd\",\n    \"insuranceRequired\": false,\n    \"transactionAllowed\": \"MARKETPLACE_AND_BUYOUT\",\n    \"loanSecurityType\": \"NONE\",\n    \"pdcRequired\": true,\n    \"pdcCollectionType\": \"ONE_FOR_ALL_ORDERS\",\n    \"waiveOffInterest\": false,\n    \"adhocAllowed\": true,\n    \"interestRateType\": \"FIXED\",\n    \"foreclosureChargesPercentageMap\": {\n        \"1\": 2\n    },\n    \"processingAmount\": {{processingAmount}},\n    \"minUtilisationRequired\": false,\n    \"minUtilisationAmount\": null,\n    \"minUtilisationChargingType\": null,\n    \"minUtilisationServiceRate\": null,\n    \"categorySpecificLimitRequired\": false,\n    \"comments\": [],\n    \"allowedGroupCompanies\": [],\n    \"rfqIds\": []\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/loanRequest/{{LoanRequestId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"loanRequest",
+						"{{LoanRequestId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getcontactID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"contactId\" , jsonData.data[0].contactId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0910821"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850731"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg4-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg4-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/{{ClientOrganisationId}}/contacts",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"{{ClientOrganisationId}}",
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addContactEmail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var Loantype = pm.globals.get(\"loanType\");",
+							"if(Loantype===\"POD\"){",
+							"     postman.setNextRequest(\"updateStatusDocstoNbfc\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0910821"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850731"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg4-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg4-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{contactName}}\",\n    \"mobile\": \"{{randomMobile}}\",\n    \"emails\": [\n        \"{{contactPersonEmail}}\"\n    ],\n    \"contactRole\": \"GENERAL_MANAGER\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/{{ClientOrganisationId}}/contact/{{contactId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"{{ClientOrganisationId}}",
+						"contact",
+						"{{contactId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStatusDocstoNbfc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0910821"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850731"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"DOCS_SENT_TO_NBFC\",\n    \"comment\": null,\n    \"loanSubStatus\": \"MANUAL\",\n    \"skipPdcCheck\": false\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loan/{{LoanId}}/status",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loan",
+						"{{LoanId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch InvoiceNo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.globals.set(\"ProcessingFeeInvoiceNo\",jsonData.data.invoiceNo);",
+							"pm.globals.set(\"ProcessingFeeInvoiceDate\",jsonData.data.date);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/invoice/invoiceNumber/PROCESSING_FEE?invoiceDateStr={{currentTime}}&_={{currentTime}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"invoice",
+						"invoiceNumber",
+						"PROCESSING_FEE"
+					],
+					"query": [
+						{
+							"key": "invoiceDateStr",
+							"value": "{{currentTime}}"
+						},
+						{
+							"key": "_",
+							"value": "{{currentTime}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadyForDisbursal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken2}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0909696"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "ofb"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4850623"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ofb.stg4-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"READY_FOR_DISBURSAL\",\n    \"sanctionDate\": {{currentTime}},\n    \"comment\": null,\n    \"loanSubStatus\": \"MANUAL\",\n    \"skipPdcCheck\": false\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loan/{{LoanId}}/status",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loan",
+						"{{LoanId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

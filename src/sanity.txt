@@ -1,0 +1,231 @@
+#!/bin/bash
+#clear data
+echo "1"
+echo ${WORKSPACE}
+
+cd ${WORKSPACE}/
+
+server=192.168.100.7
+port=223
+
+npm install
+
+echo "test description: --" ${test}
+echo "env: --" ${stg_server}
+echo "loan Type: --" ${loanType}
+
+if [ $stg_server == 'stg' ]
+then
+server=192.168.100.11
+port=220
+fi
+
+if [ $stg_server == 'stg1' ]
+then
+server=192.168.100.10
+port=221
+fi
+
+if [ $stg_server == 'stg2' ]
+then
+server=192.168.100.10
+port=222
+fi
+
+if [ $stg_server == 'stg3' ]
+then
+server=192.168.100.10
+port=223
+fi
+
+if [ $stg_server == 'stg4' ]
+then
+server=192.168.100.7
+port=224
+fi
+
+if [ $stg_server == 'stgb' ]
+then
+server=192.168.100.11
+port=221
+fi
+
+
+rediskey=$(ssh -p $port root@$server '/data/redis/install/redis-cli get DEVELOPER_KEY_VALUE')
+
+echo "rediskey:--" ${rediskey}
+
+
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey oxyzo no
+
+echo "test description: -- new-user and loan Type: --TERM_LOAN"
+
+node ${WORKSPACE}/src/new-user.js $stg_server TERM_LOAN $rediskey oxyzo no
+
+echo "test description: -- new-user and loan Type: --BG"
+
+node ${WORKSPACE}/src/new-user.js $stg_server BG $rediskey oxyzo no
+
+echo "test description: -- new-user and loan Type: --WORK_ORDER_FINANCING" 
+
+node ${WORKSPACE}/src/new-user.js $stg_server WORK_ORDER_FINANCING $rediskey oxyzo no
+
+echo "test description: -- new-user and loan Type: --CAPEX_FINANCING"
+
+node ${WORKSPACE}/src/new-user.js $stg_server CAPEX_FINANCING $rediskey oxyzo no
+
+echo "test description: -- new-user and loan Type: --BILL_DISCOUNTING"
+
+node ${WORKSPACE}/src/new-user.js $stg_server BILL_DISCOUNTING $rediskey oxyzo no
+
+echo "test description: -- new-user and loan Type: --POD"
+
+node ${WORKSPACE}/src/new-user.js $stg_server POD $rediskey oxyzo no
+
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: yes”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-flow yes rfq-rfd-buyOut-ia-id
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: no”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-flow no rfq-rfd-buyOut-ia-id
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: yes”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-da-dd yes rfq-rfd-buyOut-da-dd
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: no”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-flow no rfq-rfd-buyOut-da-dd
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: yes”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-mp-y-ia-id yes rfq-rfd-marketPlace-ia-id
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: no”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-flow yes rfq-rfd-marketPlace-ia-id
+
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: yes”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCIN $rediskey rfq-rfd-mp-y-da-dd no rfq-rfd-marketPlace-da-dd
+
+echo "test description: -- rfq-rfd and loan Type: --PURCHASE_FINANCING ofbFulfilled: no”
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey rfq-rfd-mp-n-da-dd  no rfq-rfd-marketPlace-da-dd
+
+echo "test description: -- cms-Links”
+
+node ${WORKSPACE}/src/file.js $stg_server cmsLinks $rediskey no
+
+echo "test description: -- oxyzo-Links”
+
+node ${WORKSPACE}/src/file.js $stg_server oxyzoLinks $rediskey no
+
+echo "Order using credit Instrument: LC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey rfqCredit "LC" no
+
+echo "Order using credit Instrument: BG"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey rfqCredit "BG" no
+
+echo "Order using credit Instrument: PDC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey rfqCredit "PDC" no
+
+echo "channel-partner: PURCHASE_FINANCING"
+
+node ${WORKSPACE}/src/rfq-rfd.js $stg_server PURCHASE_FINANCING $rediskey channel-partner yes channel-partner
+
+echo "test description: -- multipleLC and loan Type: --LC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey multipleLC "LC" no
+
+echo "test description: -- multipleLC and loan Type: --BG"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey multipleLC "BG" no
+
+echo "test description: -- multipleLC and loan Type: --PDC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey multipleLC "PDC" no
+
+echo "test description: -- lsp-tds-2-percentage and loan Type: --LC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey tds-lsp-agent LC lsp-tds-2-percentage 
+
+echo "test description: -- lsp-no-tds and loan Type: --LC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey tds-lsp-agent LC lsp-no-tds 
+
+echo 'test description:- agent-tds and loan type: LC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey tds-lsp-agent LC agent-tds
+
+echo 'test description:- agent-no-tds and loan type: LC"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey tds-lsp-agent LC agent-no-tds 
+
+echo 'test description:- cibil-consent-message" 
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey leadLms 
+
+echo 'test description:- adhoc-invoice" 
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey rfqCredit LC ADHOC_INVOICE 
+
+echo 'test description:- adhoc-invoice_interest" 
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey rfqCredit LC ADHOC_INVOICE_INTEREST 
+
+echo 'test description:- adhoc-invoice_service"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey rfqCredit LC ADHOC_INVOICE_SERVICE 
+
+echo 'test description:- loan-adhoc-limit"
+
+node ${WORKSPACE}/src/new-user.js $stg_server PURCHASE_FINANCING $rediskey oxyzo adhoc-limit
+
+echo 'test description:- lenders-oxyzo"
+
+node ${WORKSPACE}/src/file.js $stg_server oxyzoLinks $rediskey oxyzoFacility
+
+echo "test description: -- registered-user and loan Type: --PURCHASE_FINANCING"
+
+node ${WORKSPACE}/src/registered-user.js $stg_server PURCHASE_FINANCING $rediskey 
+
+echo "test description: -- registered-user and loan Type: --TERM_LOAN"
+
+node ${WORKSPACE}/src/registered-user.js $stg_server TERM_LOAN $rediskey
+
+echo "test description: -- registered-user and loan Type: --BG"
+
+node ${WORKSPACE}/src/registered-userBG.js $stg_server BG $rediskey
+
+echo "test description: -- registered-user and loan Type: --WORK_ORDER_FINANCING"
+
+node ${WORKSPACE}/src/registered-user.js $stg_server WORK_ORDER_FINANCING $rediskey
+
+echo "test description: -- registered-user and loan Type: --CAPEX_FINANCING"
+
+node ${WORKSPACE}/src/registered-user.js $stg_server CAPEX_FINANCING $rediskey
+
+echo "test description: -- registered-user and loan Type: --BILL_DISCOUNTING"
+
+node ${WORKSPACE}/src/registered-user.js $stg_server BILL_DISCOUNTING $rediskey
+
+echo "test description: -- registered-user and loan Type: --POD"
+
+node ${WORKSPACE}/src/registered-user.js $stg_server POD $rediskey
+
+echo "test description: -- new-user and loan Type: -- PURCHASE_FINANCING"
+

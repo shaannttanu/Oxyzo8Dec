@@ -1,0 +1,4446 @@
+{
+	"info": {
+		"_postman_id": "030b4be7-164c-4479-bfed-0d4d51b8a0cf",
+		"name": "Instaflow [FINAL]",
+		"description": "Loan Creation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21756949"
+	},
+	"item": [
+		{
+			"name": "Admin Auth Token Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"AdminAuthToken\", jsonData.data.token);",
+							"console.log(\"AdminAuthToken:\",pm.globals.get(\"AdminAuthToken\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mobile\":\"1000000000\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"userProfileType\":\"OXYZOAPPLICANT\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/oxyzo/applicant/account/login",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"applicant",
+						"account",
+						"login"
+					]
+				},
+				"description": "Get Admin auth token for further"
+			},
+			"response": []
+		},
+		{
+			"name": "CreateandVerifyPANforRedis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ofb-token",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"{{PanNumber}}\": \"{\\\"verified\\\":true,\\\"errorMessage\\\":null,\\\"details\\\":{\\\"title\\\":\\\"M/s\\\",\\\"firstName\\\":\\\"\\\",\\\"middleName\\\":\\\"\\\",\\\"lastName\\\":\\\"{{clientName}}\\\",\\\"lastUpdated\\\":\\\"28/12/2016\\\"}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/internal/pan/details/add?key={{redisKey}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"internal",
+						"pan",
+						"details",
+						"add"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{redisKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateGSTforRedis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"statusCode\": 101,\n        \"requestId\": \"e5e670a3-0f04-48da-9a31-8a0885509e06\",\n        \"result\": [\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"06SDSTF9530N1ZC\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Inactive\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"03SDSTF9530NP1ZH\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Provisional\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"02SDSTF9530NP1ZJ\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"13SDSTF9530NP1ZG\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"20SDSTF9530NP1ZL\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"17SDSTF9530NP1Z8\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"24SDSTF9530NP4ZA\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"26SDSTF9530NP1Z9\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Provisional\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"24SDSTF9530NP2ZC\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"27SDSTF9530NP2Z6\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"23SDSTF9530NP2ZE\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"08SDSTF9530NP1Z7\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"02SDSTF9530NP2ZI\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"33SDSTF9530NP1ZE\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"37SDSTF9530NP2Z5\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"27SDSTF9530NP3Z5\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Inactive\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"21SDSTF9530NP2ZI\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"27SDSTF9530NP1Z7\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"19SDSTF9530NP1Z4\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"16SDSTF9530NP1ZA\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"07SDSTF9530NP1Z9\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"34SDSTF9530NP1ZC\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"23SDSTF9530NP3ZD\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"32SDSTF9530NP1ZG\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"24SDSTF9530NP3ZB\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"24SDSTF9530NP1ZD\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"01SDSTF9530NP1ZL\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"06SDSTF9530NP1ZB\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Provisional\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"34SDSTF9530NP2ZB\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Inactive\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"23SDSTF9530NP1ZF\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"09SDSTF9530NP1Z5\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"03SDSTF9530NP2ZG\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"30SDSTF9530NP1ZK\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"36SDSTF9530NP1Z8\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"04SDSTF9530NP1ZF\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"12SDSTF9530NP1ZI\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"22SDSTF9530NP1ZH\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"10SDSTF9530NP1ZM\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"18SDSTF9530NP1Z6\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"21SDSTF9530NP1ZJ\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"05SDSTF9530NP1ZD\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"37SDSTF9530NP1Z6\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Active\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"25SDSTF9530NP1ZB\"\n            },\n            {\n                \"emailId\": \"\",\n                \"applicationStatus\": \"\",\n                \"mobNum\": \"\",\n                \"registrationName\": \"\",\n                \"gstinRefId\": \"\",\n                \"regType\": \"\",\n                \"authStatus\": \"Inactive\",\n                \"tinNumber\": \"\",\n                \"pan\": \"SDSTF9530NP\",\n                \"gstinId\": \"29SDSTF9530NP2Z2\"\n            }\n        ]\n    }"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/informant/saveDummyGstSearchBasisPan?pan={{panNumber}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"informant",
+						"saveDummyGstSearchBasisPan"
+					],
+					"query": [
+						{
+							"key": "pan",
+							"value": "{{panNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrgName ForRedis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = JSON.parse(pm.request.body.raw);",
+							"pm.globals.set(\"cinNumber\",jsonData.cin);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "7814ffce-2ecd-4674-8ebb-e7760821b3de"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"legalName\": \"{{organizationName}}\",\n    \"cin\": \"{{cinNumber}}\",\n    \"status\": \"ACTIVE\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/informant/saveDummyCompanyCinInfo?name={{organizationName}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"informant",
+						"saveDummyCompanyCinInfo"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{organizationName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StoreCINinRedis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "d6098f34-108c-4f16-a3e6-51e9bbb2e532"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lastUpdated\": 1584085684701,\n    \"companyDto\": {\n        \"authorizedCapital\": 10000000,\n        \"cin\": \"{{cinNumber}}\",\n        \"efilingStatus\": \"Active\",\n        \"incorporationDate\": 1584085584701,\n        \"legalName\": \"{{organizationName}}\",\n        \"paidUpCapital\": 5000000,\n        \"sumOfCharges\": 0,\n        \"registeredAddressDto\": {\n            \"addressLine1\": \"12 test address\",\n            \"addressLine2\": null,\n            \"city\": \"gurugram\",\n            \"pincode\": \"122001\",\n            \"state\": \"haryana\"\n        },\n        \"classification\": \"Private Limited Indian Non-Government Company\",\n        \"status\": \"Unlisted\",\n        \"lastAgmDate\": 1584085584701,\n        \"lastFilingDate\": 1584085584701,\n        \"email\": \"rupsu@gmail.com\"\n    },\n    \"authorisedSignatories\": [\n        {\n            \"pan\": \"ATYPB1234N\",\n            \"din\": \"00612644\",\n            \"name\": \"rysu\",\n            \"designation\": \"Wholetime Director\",\n            \"dinStatus\": \"Approved\",\n            \"gender\": \"male\",\n            \"dateOfBirth\": 1584085584701,\n            \"age\": 28,\n            \"dateOfAppointment\": 1584085584701,\n            \"dateOfAppointmentForCurrentDesignation\": 1584085584701,\n            \"dateOfCessation\": null\n        }\n    ],\n    \"chargeDtos\": []\n}\n"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/informant/saveDummyCompanyBaseDetails/{{cinNumber}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"informant",
+						"saveDummyCompanyBaseDetails",
+						"{{cinNumber}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StorePANinRedis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = JSON.parse(pm.request.body.raw);",
+							"const jsonObj = jsonData.gstDetailList;",
+							"",
+							"for (var key in jsonObj){",
+							"    pm.globals.set(\"GST\",key);",
+							"    break;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ofb-token",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pan\": \"{{panNumber}}\",\n    \"gstDetailList\": {\n        \"13SDSTF9530NP1ZW\": {\n            \"masterIndiaGstDetail\": {\n                \"error\": false,\n                \"data\": {\n                    \"principalPlaceOfBusinessFields\": {\n                        \"additionalPlaceOfBusinessAddress\": {\n                            \"buildingName\": \"SUKHI\",\n                            \"street\": \"1ST STAGE\",\n                            \"location\": \"BASAVESWARATOZANAR\",\n                            \"doorNumber\": \"MIG64\",\n                            \"stateName\": \"NAGALAND\",\n                            \"dst\": \"\",\n                            \"city\": \"\",\n                            \"floorNumber\": \"\",\n                            \"lattitude\": \"\",\n                            \"pinCode\": \"797106\",\n                            \"longitude\": \"\"\n                        },\n                        \"natureOfAdditionalPlaceOfBusiness\": \"Service Provision\"\n                    },\n                    \"additionalPlacePOfBusinessFields\": [],\n                    \"natureOfBusiness\": [\n                        \"Service Provision\"\n                    ],\n                    \"stateJurisdictionCode\": \"\",\n                    \"taxPayerType\": \"Regular\",\n                    \"businessName\": \"MOHAN KUMAR VENKATAIAH\",\n                    \"dateOfCancellation\": \"\",\n                    \"gstin\": \"13SDSTF9530NP1ZW\",\n                    \"lastUpdateDate\": \"15/01/2020\",\n                    \"constitutionOfBusiness\": \"Proprietorship\",\n                    \"registrationDate\": \"01/07/2017\",\n                    \"tradeName\": \"{{organizationName}}\",\n                    \"centerJurisdictionCode\": \"YU0303\",\n                    \"gstinStatus\": \"Active\",\n                    \"centerJurisdiction\": \"RANGE-CWD3\"\n                }\n            },\n            \"masterIndiaGstReturnDetail\": {\n                \"error\": false,\n                \"filedList\": {\n                    \"efiledList\": [\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"19-09-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"082020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"29-08-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"072020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"30-07-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"062020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"10-06-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"052020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"25-05-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"042020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"28-04-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"032020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        }\n                    ]\n                }\n            }\n        },\n        \"20SDSTF9530NP1ZW\": {\n            \"masterIndiaGstDetail\": {\n                \"error\": false,\n                \"data\": {\n                    \"principalPlaceOfBusinessFields\": {\n                        \"additionalPlaceOfBusinessAddress\": {\n                            \"buildingName\": \"SUKHI\",\n                            \"street\": \"1ST STAGE\",\n                            \"location\": \"BASAVESWARATOZANAR\",\n                            \"doorNumber\": \"MIG64\",\n                            \"stateName\": \"JHARKHAND\",\n                            \"dst\": \"\",\n                            \"city\": \"\",\n                            \"floorNumber\": \"\",\n                            \"lattitude\": \"\",\n                            \"pinCode\": \"828134\",\n                            \"longitude\": \"\"\n                        },\n                        \"natureOfAdditionalPlaceOfBusiness\": \"Service Provision\"\n                    },\n                    \"additionalPlacePOfBusinessFields\": [],\n                    \"natureOfBusiness\": [\n                        \"Service Provision\"\n                    ],\n                    \"stateJurisdictionCode\": \"\",\n                    \"taxPayerType\": \"Regular\",\n                    \"businessName\": \"MOHAN KUMAR VENKATAIAH\",\n                    \"dateOfCancellation\": \"\",\n                    \"gstin\": \"20SDSTF9530NP1ZW\",\n                    \"lastUpdateDate\": \"15/01/2020\",\n                    \"constitutionOfBusiness\": \"Proprietorship\",\n                    \"registrationDate\": \"01/07/2017\",\n                    \"tradeName\": \"YOYOA PRIVATE LIMITED\",\n                    \"centerJurisdictionCode\": \"YU0303\",\n                    \"gstinStatus\": \"Active\",\n                    \"centerJurisdiction\": \"RANGE-CWD3\"\n                }\n            },\n            \"masterIndiaGstReturnDetail\": {\n                \"error\": false,\n                \"filedList\": {\n                    \"efiledList\": [\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"12-09-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"082020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"15-08-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"072020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"25-07-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"062020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"26-06-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"052020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"30-05-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"042020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        },\n                        {\n                            \"valid\": \"Y\",\n                            \"modeOfFiling\": \"ONLINE\",\n                            \"dateOfFiling\": \"14-04-2020\",\n                            \"returnType\": \"GSTR3B\",\n                            \"taxPeriod\": \"032020\",\n                            \"arnNumber\": \"AA2902195869759\",\n                            \"status\": \"Filed\"\n                        }\n                    ]\n                }\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/informant/pan/{{panNumber}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"informant",
+						"pan",
+						"{{panNumber}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StoreGSTinRedis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ofb-token",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"error\": null,\n    \"data\": {\n        \"principalPlaceOfBusinessFields\": {\n            \"additionalPlaceOfBusinessAddress\": {\n                \"buildingName\": \"VIPUL AGORA MALL\",\n                \"street\": \"MG ROAD\",\n                \"location\": \"GURGAON\",\n                \"doorNumber\": \"SHOP NO 101\",\n                \"stateName\": \"NAGALAND\",\n                \"dst\": \"Gurgaon\",\n                \"city\": \"\",\n                \"floorNumber\": \"First Floor\",\n                \"lattitude\": \"\",\n                \"pinCode\": \"797106\",\n                \"longitude\": \"\"\n            },\n            \"natureOfAdditionalPlaceOfBusiness\": \"Wholesale Business\"\n        },\n        \"additionalPlacePOfBusinessFields\": [\n            {\n                \"additionalPlaceOfBusinessAddress\": {\n                    \"buildingName\": \"\",\n                    \"street\": \"Hospital Road\",\n                    \"location\": \"Bawal\",\n                    \"doorNumber\": \"H.No. 227/19/Z/5, Ward No. 13\",\n                    \"stateName\": \"NAGALAND\",\n                    \"dst\": \"Rewari\",\n                    \"city\": \"\",\n                    \"floorNumber\": \"\",\n                    \"lattitude\": \"\",\n                    \"pinCode\": \"797106\",\n                    \"longitude\": \"\"\n                },\n                \"natureOfAdditionalPlaceOfBusiness\": \"Warehouse / Depot\"\n            },\n            {\n                \"additionalPlaceOfBusinessAddress\": {\n                    \"buildingName\": \"\",\n                    \"street\": \"Sector 19-28 Dividing Road, Near Badkhal Flyover\",\n                    \"location\": \"Sector 19\",\n                    \"doorNumber\": \"Shop No. 12\",\n                    \"stateName\": \"NAGALAND\",\n                    \"dst\": \"Faridabad\",\n                    \"city\": \"\",\n                    \"floorNumber\": \"1st Floor\",\n                    \"lattitude\": \"\",\n                    \"pinCode\": \"797106\",\n                    \"longitude\": \"\"\n                },\n                \"natureOfAdditionalPlaceOfBusiness\": \"Retail Business\"\n            }\n        ],\n        \"natureOfBusiness\": [\n            \"Wholesale Business\",\n            \"Warehouse / Depot\",\n            \"Retail Business\"\n        ],\n        \"stateJurisdictionCode\": \"HR057\",\n        \"taxPayerType\": \"Regular\",\n        \"businessName\": \"YOYOA PRIVATE LIMITED\",\n        \"stateJurisdiction\": \"Gurgaon (East) Ward 12\",\n        \"dateOfCancellation\": \"\",\n        \"gstin\": \"13SDSTF9530NP1ZW\",\n        \"lastUpdateDate\": \"19/07/2018\",\n        \"constitutionOfBusiness\": \"Private Limited Company\",\n        \"registrationDate\": \"01/07/2017\",\n        \"tradeName\": \"YOYOA PRIVATE LIMITED\",\n        \"centerJurisdictionCode\": \"ZO0603\",\n        \"gstinStatus\": \"Active\",\n        \"centerJurisdiction\": \"R-38\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/informant/gst/{{GST}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"informant",
+						"gst",
+						"{{GST}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Login Otp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 502){",
+							"postman.setNextRequest(null);",
+							"}",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"CurrDate\",Date.now());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}",
+						"disabled": true
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}",
+						"disabled": true
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "1080099",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\":\"{{randomMobile}}\"}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/account/loginOtp",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"loginOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Otp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 403){",
+							"postman.setNextRequest(null);",
+							"}",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ClientOtp\", jsonData.data);",
+							"postman.setGlobalVariable(\"deviceId\", (\"0000000\" + Math.floor(0 + Math.random() * 9999999)).slice(-7));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/internal/otp?mobile={{randomMobile}}&key={{redisKey}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"internal",
+						"otp"
+					],
+					"query": [
+						{
+							"key": "mobile",
+							"value": "{{randomMobile}}"
+						},
+						{
+							"key": "key",
+							"value": "{{redisKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accountCreate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"buyerAccountId\", jsonData.data.minAccountDto.accountId);",
+							"postman.setGlobalVariable(\"ClientAuthToken\", jsonData.data.token);",
+							"console.log(\"ClientAuthToken\",pm.globals.get(\"ClientAuthToken\"))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "1080099",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"profiles\": {\n\t\t\"BUYER\": {\n\t\t\t\"type\":\"buyer\"\n\t\t},\n\t\t\"OXYZOAPPLICANT\": {\n\t\t\t\"type\":\"oxyzoapplicant\"\n\t\t}\n\t},\n\t\"mobile\":\"{{randomMobile}}\",\n\t\"password\":\"Password@123\",\n\t\"otp\":\"{{ClientOtp}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/account/create",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubIndustryMap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"type": "text",
+						"value": "{{ClientAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/industrySubIndustryMap",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"industrySubIndustryMap"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrganization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ClientOrganisationId\", jsonData.data.minOrganisationInfo.organisationId);",
+							"console.log(\"ClientOrganisationId: \",pm.globals.get(\"ClientOrganisationId\"));",
+							"postman.setGlobalVariable(\"organizationName\", jsonData.data.minOrganisationInfo.organisationName);",
+							"console.log(\"organizationName: \",pm.globals.get(\"organizationName\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"window = {};",
+							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {",
+							"var text = response.text();",
+							"(new Function(text))();",
+							"",
+							"window.faker.locale = \"de\";",
+							"var name = window.faker.company.companyName();;",
+							"",
+							"pm.globals.set(\"organizationName\", name + \" Testing Company\") ;",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"addressCreateDto\":{\n\"city\":\"Faridabad\",\n\"state\":\"Haryana\",\n\"country\":\"India\",\n\"pinCode\":\"121001\"\n},\n\"accountId\":\"{{buyerAccountId}}\",\n\"organisationName\":\"{{organizationName}}\",\n\"natureOfBusiness\":\"MANUFACTURING\",\n\"industryType\":\"AUTO_AND_AUTO_ANCILLARIES\",\n\"potential\":33,\n\"name\":\"{{clientName}}\",\n\"mobileNo\":\"{{randomMobile}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/organisation/create",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"organisation",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchOrganization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.globals.set(\"OrganisationId\",jsonData.data.organisationId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/fetchOrganisations",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fetchOrganisations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Loan Application",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"function BuildPanCard() {",
+							"  var panNumbersText = \"\";",
+							"  var possibleAlphabets = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";",
+							"",
+							"  for (var i = 0; i < 5; i++)",
+							"    panNumbersText += possibleAlphabets.charAt(Math.floor(Math.random() * possibleAlphabets.length));",
+							"",
+							"  panNumbersText += (\"0000\" + Math.floor(0 + Math.random() * 9999)).slice(-4);",
+							"",
+							"  for (var j = 0; j < 1; j++)",
+							"    panNumbersText += possibleAlphabets.charAt(Math.floor(Math.random() * possibleAlphabets.length));",
+							"",
+							"  return panNumbersText;",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"PanNumber\", BuildPanCard());",
+							"console.log(\"PanNumber\", pm.globals.get(\"PanNumber\"));",
+							"",
+							"var gstNumbertest = \"06\"+pm.globals.get(\"PanNumber\")+\"1ZC\";",
+							"postman.setGlobalVariable(\"gst\", gstNumbertest);",
+							"console.log(\"gstNumber\", pm.globals.get(\"gst\"));",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"loanAmount\", jsonData.data.loanAmount);",
+							"postman.setGlobalVariable(\"ClientAccountId\", jsonData.data.loanLeadId);",
+							"postman.setGlobalVariable(\"ClientAppId\", jsonData.data.loanApplicationId);",
+							"console.log(\"clientName\", pm.globals.get(\"clientName\"));",
+							"console.log(\"contactEmail\", pm.globals.get(\"contactEmail\"));",
+							"console.log(\"registeredMobileNumber\", pm.globals.get(\"conNum\"));",
+							"console.log(\"sLoanType\", pm.globals.get(\"sLoanType\"));",
+							"console.log(\"num\", pm.globals.get(\"randomMobile\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "{{appBuildNumber}}"
+					},
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}"
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"loanAmount\":\"1000000\",\n\"contactPersonName\":\"{{contactName}}\",\n\"contactPersonEmail\":\"{{contactPersonEmail}}\",\n\"bureauAcceptance\":\"true\",\n\"contactPersonNumber\":\"{{randomMobile}}\",\n\"organisationId\" : \"{{ClientOrganisationId}}\",\n\"clientName\":\"{{clientName}}\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/lead",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"lead"
+					]
+				},
+				"description": "loan application created by user\n"
+			},
+			"response": []
+		},
+		{
+			"name": "companyGstAddressType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.globals.set(\"loanType\",jsonData.data.loanType);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-ORGANISATION",
+						"value": "{{ClientOrganisationId}}"
+					},
+					{
+						"key": "X-OFB-PROXY-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"entityType\": \"PRIVATE_LTD_COMPANY\",\n    \"pan\": \"{{PanNumber}}\",\n    \"gstAddresses\": [\n        {\n            \"addressId\": \"6647284447093725556\",\n            \"gstn\": \"\",\n            \"addressType\": \"BILLING_ADDRESS\",\n            \"addressLine1\": \"addressLine1\",\n            \"addressLine2\": null,\n            \"landmark\": null,\n            \"pinCode\": \"121001\",\n            \"city\": \"Faridabad\",\n            \"state\": \"Haryana\"\n        },\n        {\n            \"addressId\": \"6647284139156314448\",\n            \"gstn\": \"\",\n            \"addressType\": \"BILLING_ADDRESS\",\n            \"addressLine1\": null,\n            \"addressLine2\": null,\n            \"landmark\": null,\n            \"pinCode\": \"121001\",\n            \"city\": \"Faridabad\",\n            \"state\": \"Haryana\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/loanApplication/{{ClientAppId}}/companyGstAddressType",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"companyGstAddressType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "document list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "{{appBuildNumber}}"
+					},
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}"
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-ORGANISATION",
+						"value": "{{ClientOrganisationId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/loanApplication/{{ClientAppId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"documents"
+					]
+				},
+				"description": "loan application created by user\n"
+			},
+			"response": []
+		},
+		{
+			"name": "dashboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"length\", jsonData.data.content.length);",
+							"",
+							"",
+							"function loanApplication() {",
+							"  var length = jsonData.data.content.length;",
+							"",
+							"    if(length > 1)",
+							"    {",
+							"       postman.setGlobalVariable(\"ClientAppId\", jsonData.data.content[0].applicationId);",
+							"    }",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "{{appBuildNumber}}"
+					},
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}"
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-ORGANISATION",
+						"value": "{{ClientOrganisationId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/dashboard/loans",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"dashboard",
+						"loans"
+					]
+				},
+				"description": "loan application created by user\n"
+			},
+			"response": []
+		},
+		{
+			"name": "application detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "{{appBuildNumber}}"
+					},
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}"
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-ORGANISATION",
+						"value": "{{ClientOrganisationId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/loanApplication/{{ClientAppId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"loanApplication",
+						"{{ClientAppId}}"
+					]
+				},
+				"description": "loan application created by user\n"
+			},
+			"response": []
+		},
+		{
+			"name": "timeline",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "{{appBuildNumber}}"
+					},
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}"
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-ORGANISATION",
+						"value": "{{ClientOrganisationId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/loanApplication/{{ClientAppId}}/timeline",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"timeline"
+					]
+				},
+				"description": "loan application created by user\n"
+			},
+			"response": []
+		},
+		{
+			"name": "add oxyzo super admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"{{automationId}}\",\"{{ApproverId}}\"]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/internal/role/SUPER_ADMIN_ROLE_ID/addUsers?key=ofbdev@2016",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"internal",
+						"role",
+						"SUPER_ADMIN_ROLE_ID",
+						"addUsers"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ofbdev@2016"
+						}
+					]
+				},
+				"description": "automation account used for further processing"
+			},
+			"response": []
+		},
+		{
+			"name": "unverified document count",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{ClientAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "{{buyer_app_platform}}"
+					},
+					{
+						"key": "X-BUILD-NUMBER",
+						"value": "{{appBuildNumber}}"
+					},
+					{
+						"key": "X-CLIENT-NAME",
+						"value": "{{appType}}"
+					},
+					{
+						"key": "X-CLIENT-OS",
+						"value": "{{operatingSystem}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-ORGANISATION",
+						"value": "{{ClientOrganisationId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/loanApplication/{{ClientAppId}}/documents/count?status=UNVERIFIED",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"documents",
+						"count"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "UNVERIFIED"
+						}
+					]
+				},
+				"description": "loan application created by user\n"
+			},
+			"response": []
+		},
+		{
+			"name": "create automation account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"automationId\", jsonData.data.accountId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Automation Bot\",\n  \"mobile\":\"1000000000\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"email\":\"\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/automationBot/account",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"automationBot",
+						"account"
+					]
+				},
+				"description": "automation account used for further processing"
+			},
+			"response": []
+		},
+		{
+			"name": "create approver account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ApproverId\", jsonData.data.accountId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Approver Bot\",\n  \"mobile\":\"1000000001\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"email\":\"\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/automationBot/account",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"automationBot",
+						"account"
+					]
+				},
+				"description": "approver account "
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Auth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"AdminAuthToken\", jsonData.data.token);",
+							"console.log(\"AdminAuthToken:\",pm.globals.get(\"AdminAuthToken\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mobile\":\"1000000000\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"userProfileType\":\"OXYZOAPPLICANT\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/oxyzo/applicant/account/login",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"applicant",
+						"account",
+						"login"
+					]
+				},
+				"description": "Get Admin auth token for further"
+			},
+			"response": []
+		},
+		{
+			"name": "Get application details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"LeadTaskId\", jsonData.data.leadTaskId);",
+							"postman.setGlobalVariable(\"ClientId\", jsonData.data.client.clientId);",
+							"postman.setGlobalVariable(\"OrganisationId\", jsonData.data.client.OrganisationId);",
+							"postman.setGlobalVariable(\"ClientAccountId\", jsonData.data.client.clientId);",
+							"postman.setGlobalVariable(\"LeadId\", jsonData.data.client.clientId);",
+							"postman.setGlobalVariable(\"name\", jsonData.data.client.name);",
+							"postman.setGlobalVariable(\"version\", jsonData.data.version);",
+							"var ts = Math.round((new Date()).getTime());",
+							"postman.setGlobalVariable(\"currentTime\", ts);",
+							"var currentdate = new Date();",
+							"var tomorrow =currentdate.setDate(currentdate.getDate() + 1);",
+							"postman.setGlobalVariable(\"tomorrow\", tomorrow);",
+							"console.log(tomorrow);",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "applicationId",
+						"value": "{{ClientAppId}}",
+						"disabled": true
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/detail",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"detail"
+					]
+				},
+				"description": "application detail based on application id"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lead Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"sqlLeadId\", jsonData.data.id);",
+							"postman.setGlobalVariable(\"leadName\", jsonData.data.minOrganisationDto.name);",
+							"postman.setGlobalVariable(\"leadOrganizationId\", jsonData.data.minOrganisationDto.organisationId);",
+							"postman.setGlobalVariable(\"leadPrimaryEmployeeId\", jsonData.data.minOrganisationDto.primaryEmployeeId);",
+							"postman.setGlobalVariable(\"leadStatus\", jsonData.data.minOrganisationDto.status);",
+							"postman.setGlobalVariable(\"leadPan\", jsonData.data.minOrganisationDto.pan);",
+							"console.log(\"pan :\" , pm.globals.get(\"leadPan\")) ;",
+							"postman.setGlobalVariable(\"leadEmail\", jsonData.data.minOrganisationDto.email);",
+							"console.log(\"leadEmail\",pm.globals.get(\"leadEmail\"))",
+							"postman.setGlobalVariable(\"leadEmployeeId\", jsonData.data.minOrganisationDto.organisationEmployeeDtoSet[0].employeeId);",
+							"postman.setGlobalVariable(\"leadEmployeeFullName\", jsonData.data.minOrganisationDto.organisationEmployeeDtoSet[0].fullName);",
+							"postman.setGlobalVariable(\"leadCreatedBy\", jsonData.data.mundaneDetail.createdBy);",
+							"postman.setGlobalVariable(\"leadLastModified\", jsonData.data.mundaneDetail.lastModified);",
+							"postman.setGlobalVariable(\"leadDateCreated\", jsonData.data.mundaneDetail.dateCreated);",
+							"postman.setGlobalVariable(\"creatorAccountId\", jsonData.data.creator.accountId);",
+							"postman.setGlobalVariable(\"contactNumberWithPre\", jsonData.data.minOrganisationDto.organisationEmployeeDtoSet[0].mobileNumber);",
+							"postman.setGlobalVariable(\"contactNumber\", jsonData.data.creator.mobile);",
+							"postman.setGlobalVariable(\"PrimaryAccountId\", jsonData.data.primaryAccountId);",
+							"console.log(\"leadPrimaryEmployeeId\",pm.globals.get(\"leadPrimaryEmployeeId\"));",
+							"console.log(\"leadOrganizationId\", pm.globals.get(\"leadOrganizationId\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "applicationId",
+						"value": "{{ClientAppId}}",
+						"disabled": true
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/lead/{{LeadId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"lead",
+						"{{LeadId}}"
+					]
+				},
+				"description": "Get Lead Details"
+			},
+			"response": []
+		},
+		{
+			"name": "Approver Admin Auth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ApproverAuthToken\", jsonData.data.token);",
+							"console.log(\"ApproverAuthToken:\",pm.globals.get(\"ApproverAuthToken\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mobile\":\"1000000001\",\n  \"password\":\"##ofbdevautomation@2016##\",\n  \"userProfileType\":\"OXYZOAPPLICANT\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/oxyzo/applicant/account/login",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"applicant",
+						"account",
+						"login"
+					]
+				},
+				"description": "Get Approver Admin auth token for further"
+			},
+			"response": []
+		},
+		{
+			"name": "save address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"isBillingAddress\":true,\n\"isShippingAddress\":true,\n\"isCourrierAddress\":false,\n\"isConsigneeAddress\":true,\n\"isCorporateAddress\":true,\n\"isOxyzoOfficeAddress\":true,\n\"partyId\":\"{{leadOrganizationId}}\",\n\"contactPersonName\":\"{{contactName}}\",\n\"contactPersonNumber\":\"{{randomMobile}}\",\n\"partyType\":\"BUYER_ORGANISATION\",\n\"addressLine1\":\"test-addressLine1\",\n\"addressLine2\":\"test-addressLine2\",\n\"city\":\"Faridabad\",\n\"state\":\"Haryana\",\n\"pinCode\":\"121001\",\n\"addressTypes\":[\n\"BILLING_ADDRESS\",\n\"OXYZO_OFFICE_ADDRESS\"\n,\n\"SHIPPING_ADDRESS\"\n,\n\"CORPORATE_ADDRESS\"\n],\n\"partyTypes\":[\n\"BUYER_ORGANISATION\"\n]\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/address/{{buyerAccountId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"address",
+						"{{buyerAccountId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save gst details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"vat\":null,\n\"cst\":null,\n\"gst\":\"{{gst}}\",\n\"gstIssueDate\":1545046231865\n}\n"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/tax/{{leadOrganizationId}}/taxes/HR",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"tax",
+						"{{leadOrganizationId}}",
+						"taxes",
+						"HR"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stateLevelInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"stateTaxInfoId\", jsonData.data.HR.stateTaxInfoId);",
+							"postman.setGlobalVariable(\"gst\", jsonData.data.HR.gst);",
+							"postman.setGlobalVariable(\"gstIssueDate\", jsonData.data.HR.gstIssueDate);",
+							"console.log(\"gstIssueDate: \",pm.globals.get(\"gstIssueDate\"));",
+							"console.log(\"gst: \",pm.globals.get(\"gst\"));",
+							"console.log(\"stateTaxInfoId: \",pm.globals.get(\"stateTaxInfoId\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/stateLevelInfo/{{LeadId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"stateLevelInfo",
+						"{{LeadId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody).data;",
+							"",
+							"var constAddressType = [\"BILLING_ADDRESS\", \"SHIPPING_ADDRESS\"];",
+							"var len = jsonData.minOrganisationDto.addresses.length;",
+							"for(var i = 0; i < len ; i++)",
+							"{",
+							"    console.log(jsonData.minOrganisationDto.addresses[i].addressTypes);",
+							"    var addressTypeArray = jsonData.minOrganisationDto.addresses[i].addressTypes;",
+							"    if(addressTypeArray.length >= 2) {",
+							"        console.log(\"Address:\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"        if(constAddressType.every(add => addressTypeArray.includes(add)))",
+							"        {",
+							"            postman.setGlobalVariable(",
+							"                \"buyerAddressId\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"            console.log(\"buyerAddressId:\"+ pm.globals.get(\"buyerAddressId\"));",
+							"        }",
+							"    }",
+							"}",
+							"",
+							"var constAddressType1 = [\"OXYZO_OFFICE_ADDRESS\"];",
+							"var len = jsonData.minOrganisationDto.addresses.length;",
+							"for(var i = 0; i < len ; i++)",
+							"{",
+							"    console.log(jsonData.minOrganisationDto.addresses[i].addressTypes);",
+							"    var addressTypeArray = jsonData.minOrganisationDto.addresses[i].addressTypes;",
+							"    if(addressTypeArray.length = 1) {",
+							"        console.log(\"Address:\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"        if(constAddressType1.every(add => addressTypeArray.includes(add)))",
+							"        {",
+							"            postman.setGlobalVariable(",
+							"                \"buyerAddressId1\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"            console.log(\"buyerAddressId1:\"+ pm.globals.get(\"buyerAddressId1\"));",
+							"        }",
+							"    }",
+							"}",
+							"",
+							"var constAddressType2 = [null];",
+							"var len = jsonData.minOrganisationDto.addresses.length;",
+							"for(var i = 0; i < len ; i++)",
+							"{",
+							"    var addressTypeArray = jsonData.minOrganisationDto.addresses[i].addressTypes;",
+							"    if(!addressTypeArray[0]) {",
+							"            postman.setGlobalVariable(",
+							"                \"buyerAddressId2\", jsonData.minOrganisationDto.addresses[i].addressId);",
+							"            console.log(\"buyerAddressId2:\"+ pm.globals.get(\"buyerAddressId2\"));",
+							"",
+							"        }",
+							"    }"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "applicationId",
+						"value": "{{ClientAppId}}",
+						"disabled": true
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/lead/{{LeadId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"lead",
+						"{{LeadId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAddresswithGST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody) ;",
+							"pm.globals.set(\"ClientAdressId\" , jsonData.data.addressId) ;",
+							"setTimeout(function(){",
+							"    console.log(\"Waiting for 3 seconds before the next request\");",
+							"},3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.085396"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790909"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg3-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg3-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"addressLine1\": \"Somewhere\",\n    \"addressLine2\": \"in Faridabad\",\n    \"pinCode\": \"121001\",\n    \"city\": \"Faridabad\",\n    \"state\": \"HARYANA\",\n    \"landmark\": null,\n    \"addressTypes\": [\n        \"BILLING_ADDRESS\",\n        \"SHIPPING_ADDRESS\"\n    ],\n    \"linkedContactPersonIds\": [\n        \"6238628696362588160\"\n    ],\n    \"linkedGst\": \"{{gst}}\",\n    \"partyId\": \"{{ClientOrganisationId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/address/765003511120269717",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"address",
+						"765003511120269717"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyAddress",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853917"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790979"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg3-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg3-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"comment\": \"\",\n        \"documentGroup\": \"COMPANY_ADDRESS_PROOF\",\n        \"documentTypeId\": \"6255234674453387231\",\n        \"formAnswerCreateDto\": {},\n        \"parentDocumentId\": \"\",\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"download.jpeg\",\n        \"keepOriginal\": true,\n        \"size\": 4652,\n        \"status\": \"VERIFIED\",\n        \"storagePath\": \"{{tempFileLocation}}\"\n    },\n    \"verificationOption\": \"SELECT_EXISTING\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/address/{{ClientOrganisationId}}/{{ClientAdressId}}/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"address",
+						"{{ClientOrganisationId}}",
+						"{{ClientAdressId}}",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyAdress2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853877"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790884"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg3-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg3-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/address/{{ClientOrganisationId}}/addresses",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"address",
+						"{{ClientOrganisationId}}",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyAdress3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853877"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790884"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg3-sales.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg3-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/address/{{ClientOrganisationId}}/addresses",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"address",
+						"{{ClientOrganisationId}}",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lead Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"sqlLeadId\", jsonData.data.id);",
+							"postman.setGlobalVariable(\"leadPrimaryEmployeeId\", jsonData.data.minOrganisationDto.primaryEmployeeId);",
+							"console.log(\"leadPrimaryEmployeeId\",pm.globals.get(\"leadPrimaryEmployeeId\"))",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "applicationId",
+						"value": "{{ClientAppId}}",
+						"disabled": true
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/lead/{{LeadId}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"lead",
+						"{{LeadId}}"
+					]
+				},
+				"description": "Get Lead Details"
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyGst",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"Invoice.png\",\n        \"size\": 67975,\n        \"storagePath\": \"{{tempFileLocation}}\",\n        \"status\": \"VERIFIED\",\n        \"documentTypeId\": \"6307081014124484786\",\n        \"documentGroup\": \"COMPANY_GST\"\n    },\n    \"verificationOption\": \"CHOOSE_EXISTING\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/{{ClientOrganisationId}}/GST/{{stateTaxInfoId}}/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"{{ClientOrganisationId}}",
+						"GST",
+						"{{stateTaxInfoId}}",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"fingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"tempFileLocation\", jsonData.data.tempUrl);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyPan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"download.jpeg\",\n        \"size\": 67975,\n        \"storagePath\": \"{{tempFileLocation}}\",\n        \"status\": \"VERIFIED\",\n        \"documentTypeId\": \"6254601419865724783\",\n        \"documentGroup\": \"COMPANY_PAN\"\n    },\n    \"pan\": \"{{PanNumber}}\",\n    \"oldPan\": \"\",\n    \"changePan\": false,\n    \"verificationOption\": \"CHOOSE_EXISTING\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/{{ClientOrganisationId}}/verifyPan",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"{{ClientOrganisationId}}",
+						"verifyPan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify Branch_Region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/org/organisation/{{ClientOrganisationId}}/BRANCH_REGION/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"org",
+						"organisation",
+						"{{ClientOrganisationId}}",
+						"BRANCH_REGION",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginOtp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\":\"{{randomMobile}}\"}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/account/loginOtp",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"loginOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOtpPrimaryEmployee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 403){",
+							"postman.setNextRequest(null);",
+							"}",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"ClientOtp\", jsonData.data);",
+							"console.log(\"ClientOtp:\"+ pm.globals.get(\"ClientOtp\"));",
+							"console.log(\"conNum:\"+ pm.globals.get(\"conNum\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{stgAPI}}/api/v1/internal/otp?mobile={{randomMobile}}&key={{redisKey}}",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"internal",
+						"otp"
+					],
+					"query": [
+						{
+							"key": "mobile",
+							"value": "{{randomMobile}}"
+						},
+						{
+							"key": "key",
+							"value": "{{redisKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Loan Application",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "CIN",
+						"value": "U18101MH1994PLC082837",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"applicationId\":\"{{ClientAppId}}\",\n\"loanAmount\":1000000,\n\"loanType\":\"{{loanType}}\",\n\"loanTenure\":3,\n\"purpose\":null,\n\"version\":\"{{version}}\",\n\"evaluation\":{\n\"overallEvaluation\":null\n},\n\"offer\":{\n\"limitOffer\":null\n},\n\"clientId\":\"{{ClientId}}\",\n\"contactPersonName\":null,\n\"contactPersonMobile\":\"\",\n\"contactPersonEmail\":\"\",\n\"processingOfficerAccountId\":\"\",\n\"processingOfficerAccount\":null,\n\"salesPersonAccountId\":\"6130569898436333872\",\n\"mode\":\"\",\n\"documentCollectorAccountId\":\"6130569898436333872\",\n\"underwriterAccountId\":\"\",\n\"loanApplicationStatus\":\"VERIFIED\",\n\"contactPersonDesignation\":\"\",\n\"remarks\":\"\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "client-> save client as verified",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"BankAccountNumber\", (\"00000\" + Math.floor(0 + Math.random() * 99999)).slice(-5));",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"clientId\":\"{{ClientId}}\",\n\"name\":\"{{leadName}}\",\n\"email\":\"{{leadEmail}}\",\n\"entityType\":\"PRIVATE_LTD_COMPANY\",\n\"natureOfBusiness\":\"INFRASTRUCTURE\",\n\"industryType\":\"STEEL\",\n\"pan\":\"{{PanNumber}}\",\n\"cin\":null,\n\"yearOfIncorporation\":1236,\n\"numberOfProjects\":null,\n\"numberOfPromoters\":1,\n\"numberOfEmployees\":null,\n\"revenue\":null,\n\"officeType\":null,\n\"businessRegistered\":false,\n\"officeAddress\":{\n\"addressLine1\":\"123\",\n\"addressLine2\":null,\n\"city\":\"Faridabad\",\n\"state\":\"Haryana\",\n\"pinCode\":\"121001\"\n},\n\"status\":\"VERIFIED\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}"
+					]
+				},
+				"description": "enter client values and save it as verified"
+			},
+			"response": []
+		},
+		{
+			"name": "client-save-verified",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"BankAccountNumber\", (\"00000\" + Math.floor(0 + Math.random() * 99999)).slice(-5));",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"clientId\":\"{{ClientId}}\",\n\"name\":\"{{leadName}}\",\n\"email\":null,\n\"entityType\":\"PRIVATE_LTD_COMPANY\",\n\"natureOfBusiness\":\"MANUFACTURING\",\n\"industryType\":\"STEEL\",\n\"pan\":\"{{PanNumber}}\",\n\"cin\":null,\n\"yearOfIncorporation\":1234,\n\"numberOfProjects\":null,\n\"numberOfPromoters\":1,\n\"numberOfEmployees\":null,\n\"revenue\":null,\n\"officeType\":null,\n\"businessRegistered\":false,\n\"officeAddress\":{\n\"addressLine1\":\"addressLine1\",\n\"addressLine2\":null,\n\"city\":\"Faridabad\",\n\"state\":\"Haryana\",\n\"pinCode\":\"121001\"\n},\n\"status\":\"VERIFIED\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}"
+					]
+				},
+				"description": "enter client values and save it as verified"
+			},
+			"response": []
+		},
+		{
+			"name": "client-> client bank Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"BankAccountId\", jsonData.data.bankAccountId);",
+							"pm.globals.set(\"BankName\",jsonData.data.name);",
+							"pm.globals.set(\"BranchName\",jsonData.data.branchName);",
+							"pm.globals.set(\"IfscCode\",jsonData.data.ifscCode);",
+							"pm.globals.set(\"AccountHolderName\",jsonData.data.accountHolderName);",
+							"pm.globals.set(\"BankAccountType\",jsonData.data.bankAccountType);",
+							"pm.globals.set(\"Label\",jsonData.data.label);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"bankAccountType\":\"OVERDRAFT\",\n\"bankName\":\"ABHYUDAYA COOPERATIVE BANK LIMITED\",\n\"accountNumber\":\"{{BankAccountNumber}}\",\n\"ifscCode\":\"ABHY0065001\",\n\"accountHolder\":\"Account Holder name\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/bankAccount",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"bankAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bank Account -> Verify",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "https://stg-sales.ofbusiness.in"
+					},
+					{
+						"key": "Referer",
+						"value": "https://stg-sales.ofbusiness.in/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "X-CLIENT-DOMAIN",
+						"value": "OFB"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4812895"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.1022503"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "WEB_SITE"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "892962285654383682"
+					},
+					{
+						"key": "X-REFERRER-DOMAIN",
+						"value": "ADMIN"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"minCreateDocumentDto\": {\n        \"comment\": \"\",\n        \"documentGroup\": \"COMPANY_BANK_STATEMENTS\",\n        \"documentTypeId\": \"6310695617769248592\",\n        \"formAnswerCreateDto\": {},\n        \"parentDocumentId\": \"\",\n        \"fileFingerPrint\": \"{{fingerPrint}}\",\n        \"documentName\": \"temp.png\",\n        \"keepOriginal\": true,\n        \"size\": 35803,\n        \"status\": \"UNVERIFIED\",\n        \"storagePath\": \"{{TempFileLocation}}\"\n    },\n    \"verificationOption\": \"UPLOAD_NEW\",\n    \"organisationId\": \"{{OrganisationId}}\",\n    \"bankAccountId\": \"{{BankAccountId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{stgAPI}}/api/v2/org/bankAccount/verify",
+					"host": [
+						"{{stgAPI}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"org",
+						"bankAccount",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "client-> Add promoter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"BankAccountNumber\", (\"00000\" + Math.floor(0 + Math.random() * 99999)).slice(-5));",
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\"promoterId\":\"6238628696362588160\",\"shareHoldingPercentage\":12}]\n"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/promoters",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"promoters"
+					]
+				},
+				"description": "enter promoter values"
+			},
+			"response": []
+		},
+		{
+			"name": "client-> bank activate true",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/bankAccount/{{BankAccountId}}?activate=true",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"bankAccount",
+						"{{BankAccountId}}"
+					],
+					"query": [
+						{
+							"key": "activate",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"PromoterId\", jsonData.data.promoters[0].promoterId);",
+							"postman.setGlobalVariable(\"PromoterName\", jsonData.data.promoters[0].name);",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}"
+					]
+				},
+				"description": "client details"
+			},
+			"response": []
+		},
+		{
+			"name": "application-> credit rating (CIBIL & EXPERIAN)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"version\":0,\n\"promoterId\":\"{{PromoterId}}\",\n\"name\":\"{{PromoterName}} \",\n\"cibilScore\":387,\n\"cibilDate\":1525113000000,\n\"experianScore\":\"356\",\n\"experianDate\":1535999400000\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/creditRatings",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"creditRatings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "application-> credit rating-> Overall Inputs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"numberOfDefaults\":12,\n\"numberOfLoanEnquiries\":2,\n\"noOfMonthsWithDelay\":7\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/creditRatingMinInfo",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"creditRatingMinInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Application-> GST- tax- Returns",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"duration\":1475260200000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1477938600000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1480530600000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1480530600000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1483209000000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1485887400000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1488306600000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1488306600000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1490985000000,\n\"durationType\":\"MONTHLY\",\n\"amount\":99\n},\n{\n\"duration\":1493577000000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1496255400000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1496255400000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1498847400000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1501525800000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1504204200000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1504204200000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1506796200000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1509474600000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1512066600000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1512066600000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1514745000000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1517423400000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1519842600000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1519842600000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1522521000000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1525113000000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1527791400000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1527791400000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n},\n{\n\"duration\":1530383400000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1533061800000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1535740200000,\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":1535740200000,\n\"durationType\":\"QUARTERLY\",\n\"amount\":9\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/taxReturns",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"taxReturns"
+					]
+				},
+				"description": "GST Return for Jan2018-Sept2018\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Application-> sales-Registers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"duration\":\"1475260200000\",\n\"durationType\":\"MONTHLY\",\n\"amount\":10\n},\n{\n\"duration\":\"1477938600000\",\n\"durationType\":\"MONTHLY\",\n\"amount\":9\n},\n{\n\"duration\":\"1480530600000\",\n\"durationType\":\"MONTHLY\",\n\"amount\":8\n},\n{\n\"duration\":\"1480530600000\",\n\"durationType\":\"QUARTERLY\",\n\"amount\":27\n},\n{\n\"duration\":\"1530383400000\",\n\"durationType\":\"MONTHLY\",\n\"amount\":89\n},\n{\n\"duration\":\"1533061800000\",\n\"durationType\":\"MONTHLY\",\n\"amount\":98\n},\n{\n\"duration\":\"1535740200000\",\n\"durationType\":\"MONTHLY\",\n\"amount\":78\n},\n{\n\"duration\":\"1535740200000\",\n\"durationType\":\"QUARTERLY\",\n\"amount\":265\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/salesRegisters",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"salesRegisters"
+					]
+				},
+				"description": "oct-2016 till dec-2016\nand\napr 2018 till jun 2018"
+			},
+			"response": []
+		},
+		{
+			"name": "Application-> financial-> all metrics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/financial",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"financial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Application-> Get Financial Metrics id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/financial",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"financial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file-tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"FingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"TempFileLocation\", jsonData.data.tempUrl);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file Upload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"fileFingerPrint\":\"{{FingerPrint}}\",\n\"documentName\":\"Invoice\",\n\"storagePath\":\"{{TempFileLocation}}\",\n\"size\":67975\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> get document id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"DocumentId\", jsonData.data.unverifiedDocument[0].documentId);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " get TaxAuditReport documentId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"if(jsonData.data.content.length!=0){",
+							"",
+							"    var taxId = jsonData.data.content[0].documentTypeId ;",
+							"",
+							"if(taxId !== null) ",
+							"{     postman.setGlobalVariable(\"taxauditId\", jsonData.data.content[0].documentTypeId);",
+							"\tpostman.setNextRequest(\"Document-> save document details\");",
+							"    console.log(\"taxauditId:\"+ pm.globals.get(\"taxauditId\"));",
+							"}",
+							"else",
+							"{",
+							"    postman.setNextRequest(\"Add Document Type\");",
+							"}",
+							"",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/documentType/list?pageNumber=0&query=Tax%20Audit%20Report",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"documentType",
+						"list"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "query",
+							"value": "Tax%20Audit%20Report"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Document Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"taxauditId\", jsonData.data.documentTypeId);",
+							"console.log(\"taxauditId:\"+ pm.globals.get(\"taxauditId\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tax Audit Report\",\n    \"groups\": [\n        \"COMPANY_FINANCIAL_STATEMENTS\"\n    ],\n    \"docPurpose\": [],\n    \"entityTypes\": [\n        \"CLIENT\"\n    ],\n    \"metaDataFormId\": \"6264352674620117647\",\n    \"qcFormId\": \"6257143228139574405\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/documentType",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"documentType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> save document details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentId\": \"{{DocumentId}}\",\n    \"status\": \"VERIFIED\",\n    \"properties\": [\n  {\n            \"documentTypeId\": \"6254601419802810222\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2016-17\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n {\n            \"documentTypeId\": \"6254601419802810222\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2017-18\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419802810222\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2018-19\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419748284269\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2016-17\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419748284269\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2017-18\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419748284269\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2018-19\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419291105127\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2016-17\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419291105127\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2017-18\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419291105127\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2018-19\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6310695617769248592\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6309639617146523769\",\n                \"values\": {\n                    \"6309639617117163638\": [\n                        \"{{BankAccountId}}\"\n                    ],\n                    \"6257143228022133899\": [\n                        \"PDF From Net banking\"\n                    ],\n                    \"6309639617121357944\": [\n                        1567276200000\n                    ],\n                    \"6309639617117163639\": [\n                        {{currentTime}}\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228030522499\",\n                \"values\": {\n                    \"6257143228022133889\": [\n                        true\n                    ],\n                    \"6257143228026328194\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419601483627\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2016-17\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419601483627\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2017-18\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419601483627\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2018-19\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6254601419865724783\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674469122701\",\n                \"values\": {\n                    \"6264352674464928396\": [\n                        \"TESTP8977P\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"MARCH\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2018-19\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"APRIL\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"MAY\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"JUNE\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"JULY\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"AUGUST\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"SEPTEMBER\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"OCTOBER\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"NOVEMBER\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"DECEMBER\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"JANUARY\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6307081014124484786\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6307080844833986715\",\n                \"values\": {\n                    \"6624187576515302574\": [\n                        \"PDF_FROM_PORTAL\"\n                    ],\n                    \"6624187576666297520\": [\n                        \"06LRYDZ1708D1ZC\"\n                    ],\n                    \"6307080844833986713\": [\n                        \"FEBRUARY\"\n                    ],\n                    \"6624187576435610797\": [\n                        \"GSTR_1\"\n                    ],\n                    \"6307080844833986714\": [\n                        \"FY 2019-20\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6281992870043850716\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6368716129900172630\",\n                \"values\": {\n                    \"6368716129875006805\": [\n                        \"06AACCO2967C1CZ\"\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6406833573420078288\",\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"6550554754462784657\",\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n    \t{\n\t\t\t\"documentTypeId\": \"6254601418905229148\",\n    \t\t\"metaDataAnswer\": {\n        \t\"formId\": \"6264352674313933451\",\n        \t\"values\": {\n            \"6264352674309739146\": [\n                1586370600000\n            ]\n        \t\t}\n    \t\t},\n    \t\t\"qcAnswer\": {\n        \t\"formId\": \"6257143228424787084\",\n        \t\"values\": {\n            \"6257143228416398474\": [\n                true\n            ],\n            \"6257143228416398473\": [\n                true\n            ],\n            \"6257143228420592779\": [\n                true\n            ]\n        \t}\n    \t\t},\n\t\t\t\"entityType\": \"CLIENT\",\n    \t\t\"entityId\": \"{{ClientId}}\"\n\t\t\t},{\n            \"documentTypeId\": \"6310695617769248592\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6309639617146523769\",\n                \"values\": {\n                    \"6309639617117163638\": [\n                        \"{{unverifiedBankAccountId}}\"\n                    ],\n                    \"6257143228022133899\": [\n                        \"PDF From Net banking\"\n                    ],\n                    \"6309639617121357944\": [\n                        1567276200000\n                    ],\n                    \"6309639617117163639\": [\n                        {{currentTime}}\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228030522499\",\n                \"values\": {\n                    \"6257143228022133889\": [\n                        true\n                    ],\n                    \"6257143228026328194\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"6648133549629116845\"\n        },\n\t\t{\n            \"documentTypeId\": \"{{taxauditId}}\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2016-17\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n\t\t{\n            \"documentTypeId\": \"{{taxauditId}}\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2017-18\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        },\n        {\n            \"documentTypeId\": \"{{taxauditId}}\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674620117647\",\n                \"values\": {\n                    \"6264352674615923342\": [\n                        \"FY 2018-19\"\n                    ],\n                    \"6330570365336558847\": [\n                        \"PROVISIONAL\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228139574405\",\n                \"values\": {\n                    \"6257143228139574404\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientId}}\"\n        }\n \n\t\t\t\n        ],\n    \"documentGroup\": \"OTHER\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/document/{{DocumentId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"document",
+						"{{DocumentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file-tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"FingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"TempFileLocation\", jsonData.data.tempUrl);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload clientLoanSheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN",
+						"type": "text"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentName\": \"download.jpeg\",\n    \"storagePath\": \"{{TempFileLocation}}\",\n    \"fingerPrint\": \"{{FingerPrint}}\",\n    \"size\": 129910\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{LeadId}}/clientLoanSheet",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{LeadId}}",
+						"clientLoanSheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add CIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853971"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "oxyzo"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.479127"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://oxyzo.stg3-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://oxyzo.stg3-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"clientId\": \"{{ClientAccountId}}\",\n    \"name\": \"The Automation Testing Enterprise\",\n    \"email\": \"{{contactEmail}}\",\n    \"entityType\": \"PRIVATE_LTD_COMPANY\",\n    \"industryType\": \"MANUFACTURING - AUTO_AND_AUTO_ANCILLARIES\",\n    \"pan\": \"{{PanNumber}}\",\n    \"cin\": \"U18101MH1994PLC082837\",\n    \"yearOfIncorporation\": 1234,\n    \"numberOfProjects\": null,\n    \"numberOfPromoters\": 1,\n    \"numberOfEmployees\": null,\n    \"revenue\": null,\n    \"officeType\": null,\n    \"businessRegistered\": false,\n    \"status\": \"VERIFIED\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientAccountId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientAccountId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file-tempUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"FingerPrint\", jsonData.data.fingerPrint);",
+							"postman.setGlobalVariable(\"TempFileLocation\", jsonData.data.tempUrl);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ofb-289/Pictures/temp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{stgfs}}/api/v1/file/tempUpload",
+					"host": [
+						"{{stgfs}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"tempUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document-> file Upload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status-code\"] = responseCode.code === 201;",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"documentId\" , jsonData.data[0].documentId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\"fileFingerPrint\":\"{{FingerPrint}}\",\n\"documentName\":\"download.jpeg\",\n\"storagePath\":\"{{TempFileLocation}}\",\n\"size\":67975\n}\n]"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/client/{{ClientId}}/documents",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"client",
+						"{{ClientId}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload CIBIL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"setTimeout(function(){",
+							" console.log(\"Sleeping for 3 seconds before the next request\") ;",
+							"},3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\""
+					},
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "X-LOCATION-LONG",
+						"value": "77.0853965"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01"
+					},
+					{
+						"key": "X-OFB-KEY",
+						"value": "oxyzoadmin"
+					},
+					{
+						"key": "X-OFB-PLATFORM",
+						"value": "ADMIN"
+					},
+					{
+						"key": "X-NAMESPACE",
+						"value": "oxyzo"
+					},
+					{
+						"key": "X-LOCATION-LAT",
+						"value": "28.4790996"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Linux\""
+					},
+					{
+						"key": "Origin",
+						"value": "https://oxyzo.stg3-oxyzoadmin.ofbusiness.in"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://oxyzo.stg3-oxyzoadmin.ofbusiness.in/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentId\": \"{{documentId}}\",\n    \"status\": \"VERIFIED\",\n    \"properties\": [\n        {\n            \"documentTypeId\": \"6254601418905229148\",\n            \"metaDataAnswer\": {\n                \"formId\": \"6264352674313933451\",\n                \"values\": {\n                    \"6264352674309739146\": [\n                        1638124200000\n                    ],\n                    \"6717952360305399985\": [\n                        \"1\"\n                    ],\n                    \"6717952360301205680\": [\n                        \"1\"\n                    ]\n                }\n            },\n            \"qcAnswer\": {\n                \"formId\": \"6257143228424787084\",\n                \"values\": {\n                    \"6257143228416398474\": [\n                        true\n                    ],\n                    \"6257143228420592779\": [\n                        true\n                    ],\n                    \"6257143228416398473\": [\n                        true\n                    ]\n                }\n            },\n            \"entityType\": \"CLIENT\",\n            \"entityId\": \"{{ClientOrganisationId}}\"\n        }\n    ],\n    \"documentGroup\": \"OTHER\"\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/document/{{documentId}}",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"document",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "status from verified to Document Collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"setTimeout(function(){",
+							" console.log(\"Sleeping for 2 seconds before the next request\") ;",
+							"},2000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OFB-TOKEN",
+						"value": "{{AdminAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"DOCUMENT_COLLECTION\",\n    \"comments\": [\n        {\n            \"comment\": \"test\",\n            \"predefinedComment\": false,\n            \"additionalComment\": null,\n            \"additionalCommentAllowed\": false\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{oxyzoAPI}}/api/v1/oxyzo/admin/loanApplication/{{ClientAppId}}/status",
+					"host": [
+						"{{oxyzoAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"oxyzo",
+						"admin",
+						"loanApplication",
+						"{{ClientAppId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
