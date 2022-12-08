@@ -1,0 +1,1458 @@
+{
+	"id": "f5c9a71c-bfb0-489c-8c96-0a27b527ace8",
+	"values": [
+		{
+			"key": "BaseURL",
+			"value": "https://simple-books-api.glitch.me",
+			"enabled": true
+		},
+		{
+			"key": "Token",
+			"value": null,
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ClientOtp",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "deviceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "automationId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ApproverId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AdminAuthToken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ApproverAuthToken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "tomorrowTime",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PanNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "gst",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientAuthToken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "currentTime",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "organizationName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientOrganisationId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LeadId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "stateTaxInfoId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "gstIssueDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientAdressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "fingerPrint",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "tempFileLocation",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "sqlLeadId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadPrimaryEmployeeId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "rfqId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerRFQId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerRFQLineItemId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "gstNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadOrganizationId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadStatus",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadPan",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadEmail",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadEmployeeId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadEmployeeFullName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadCreatedBy",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadLastModified",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadDateCreated",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "creatorAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "contactNumberWithPre",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mobileNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "clientName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PrimaryAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadTaskId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "organizationAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerQuoteId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerQuoteLineItemId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressLine1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressLine2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressCity",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressState",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressPincode",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressCP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddressCN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressLine1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressLine2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressCity",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressState",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressPincode",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressCP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickupAddressCN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FingerPrint",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TempFileLocation",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "loanAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientAppId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "length",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LeadTaskId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "OrganisationId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "name",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "version",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "contactNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BankAccountNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BankAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PromoterId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PromoterName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PdFormId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FormAnswerId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "loanType",
+			"value": "PURCHASE_FINANCING",
+			"enabled": true
+		},
+		{
+			"key": "loanType",
+			"value": "",
+			"type": "any",
+			"enabled": false
+		},
+		{
+			"key": "buyerPoDocumentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "orderId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "orderItemId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "wareHouseAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerBillingAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "SupplierPODocumentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AdminAuthToken2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "dispatchId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierPickAddress",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierBillingAddress",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "shipmentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lspid",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lspbankaccountid",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FingerPrint1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TempFileLocation1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerTaxInvoice",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Baccount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "unverifiedBankAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "bankAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerdocumentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerPOdocumentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "requestpaymentid",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "SalesReturnInvoiceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PurchaseReturnInvoiceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "documentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DocumentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "taxauditId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_outward_bouncing",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_Promoter",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter_0",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_CASH_PROFIT",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_GROSS_PROFIT_MARGIN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_NET_PROFIT_MARGIN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_ICR",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_DEBT_EQUITY_RATIO",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_INVENTORY_DAYS",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_DEBTORS_RECEIVABLES_DAYS",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_CREDITORS_PAYABLE_DAYS",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_PBDIT",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_DSCR_LOAN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_WC_CYCLE_DAYS",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanRequestId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "processingAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Loan",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "loanId",
+			"value": "",
+			"type": "default",
+			"enabled": false
+		},
+		{
+			"key": "SuperAdmin",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "LoanId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NbfcLoanId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "coBorrowerId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "addressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "registeredAddressId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanDocumentIds",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanDocumentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProcessingInvoiceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProcessingInvoiceNo",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceNo",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invoiceNoStr",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerAddressId1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BankAlertPaymentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "contactName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "organisationId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter_1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter_2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter_3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter_4",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FieldIdentifier_credit_rating_promoter_5",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ApproverAccountId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "bgNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "bgId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "bgAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "nbfcId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "repaymentCycle",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "interestRate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "paymentTermStatus",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerPOnum",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "documentName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "documentType",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "supplierbankAccountId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "formAnswerId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceUploadResponseData",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "buyerRFQLineItemId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LcId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanAppId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "loanSubType",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UTR",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "bankAlertPaymentId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "loanDisbursalId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "paymentRequestId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "SuperAuth",
+			"value": "6416100985655005722",
+			"enabled": true
+		},
+		{
+			"key": "SuperAuth",
+			"value": "",
+			"type": "any",
+			"enabled": false
+		},
+		{
+			"key": "tomorrow",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DisbursalAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Amount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PayeeBankAccId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BankName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BranchName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "IfscCode",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AccountHolderName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BankAccountType",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Label",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "$$timestamp",
+			"value": "",
+			"type": "any",
+			"enabled": false
+		},
+		{
+			"key": "CurrDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BankAccId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LatestDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "leadId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanDisbursalRequestId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "RemainingAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "numEMIs",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "panNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "fdId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "clientId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AnchorOrganisationId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "childNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "organisationTypes",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "insuranceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InsurancePassKey",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "sLoanType",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ClientAppId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanRequestId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanAmount2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "processingAmount2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "coBorrowerId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "addressId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanDocumentId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceNo2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invoiceNoStr2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProcessingInvoiceId2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProcessingInvoiceNo2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cinNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PartnerId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PartnerName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LimitOffer",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NodeId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "SubNodeId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ConfigId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceFactoringId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanDisbursalId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanInvoiceDisbursalId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoanInvoiceId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PaymentRequestId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "contactId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvoiceDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProcessingFeeInvoiceNo",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProcessingFeeInvoiceDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "firstCutDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "finalizationDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "expiryDate",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ContractId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "GST",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2022-12-08T12:31:03.635Z",
+	"_postman_exported_using": "Postman/9.31.25"
+}
